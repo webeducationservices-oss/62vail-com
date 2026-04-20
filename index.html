@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>62 Vail | THE SIXTY TWO&trade; Society &mdash; Vail's Premier Alpine Club</title>
+  <meta name="description" content="62Vail.com &mdash; An exclusive independently owned alpine club in Vail Village. Only 62 memberships. World-class dining, ski-in/ski-out access, and bespoke concierge services steps from Gondola One. Schedule a private call.">
+  <link rel="canonical" href="https://www.thesixtytwovail.com/">
+  <meta property="og:title" content="62 Vail | THE SIXTY TWO&trade; Society">
+  <meta property="og:description" content="Vail's premier independently owned alpine club. Only 62 memberships. Schedule a private call.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://62vail.com/">
+  <meta property="og:image" content="https://62vail.com/images/hero-building.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#000031">
+  <link rel="icon" type="image/png" href="images/Copy-of-sixty-two-gradient-4-in.pdf-640w.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ===== Google Consent Mode v2 (denied-first, GDPR-safe). Must run BEFORE GTM. ===== -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+    // Re-apply any previously stored consent before GTM fires tags.
+    try {
+      var saved = JSON.parse(localStorage.getItem('sixtytwo_consent_v1') || 'null');
+      if (saved && saved.choice) {
+        var g = saved.choice === 'all' ? 'granted' : 'denied';
+        gtag('consent', 'update', {
+          'ad_storage': g,
+          'ad_user_data': g,
+          'ad_personalization': g,
+          'analytics_storage': g
+        });
+      }
+    } catch (e) {}
+  </script>
+
+  <!-- reCAPTCHA v3 (invisible, score-based) -->
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lck8aQsAAAAALMA-T6nwfkSf7bv4K-mOhkszeKh" async defer></script>
+
+  <!-- ===== Google Tag Manager ===== -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TZJB5P84');</script>
+  <!-- End Google Tag Manager -->
+  <style>
+    :root {
+      --navy: #000031;
+      --navy-light: #0d0d42;
+      --gold: #e4b03e;
+      --gold-hover: #f0c35a;
+      --cream: #f9f7f2;
+      --white: #ffffff;
+      --gray-50: #fafafa;
+      --gray-300: #c4c4cc;
+      --gray-500: #78788a;
+      --gray-700: #3a3a4a;
+      --text-light: rgba(255,255,255,0.75);
+      --text-lighter: rgba(255,255,255,0.55);
+      --r-sm: 6px;
+      --r-md: 12px;
+      --r-lg: 20px;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Manrope', sans-serif;
+      color: var(--gray-700);
+      background: var(--white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { max-width:100%; display:block; }
+    a { text-decoration:none; color:inherit; }
+    .container { max-width:1200px; margin:0 auto; padding:0 clamp(1.25rem, 4vw, 3rem); }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      background: var(--navy);
+      text-align: center;
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid rgba(228,176,62,0.15);
+    }
+    .top-bar p {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+    .top-bar a {
+      font-weight: 600;
+      font-style: italic;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      margin-left: 0.4rem;
+      transition: color 0.3s;
+    }
+    .top-bar a:hover { color: var(--gold-hover); }
+
+    /* ===== NAV ===== */
+    .nav {
+      background: var(--navy);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 2rem 0;
+      transition: padding 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    }
+    .nav.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.3); padding: 0.7rem 0; }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav__left { display: flex; align-items: center; gap: 2.5rem; }
+    .nav__links { display: flex; gap: 2rem; list-style: none; }
+    .nav__link {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-light);
+      letter-spacing: 0.03em;
+      transition: color 0.3s;
+    }
+    .nav__link:hover { color: var(--white); }
+    .nav__logo { position: absolute; left: 50%; transform: translateX(-50%); }
+    .nav__logo img { height: 110px; width: auto; transition: height 0.4s var(--ease); }
+    .nav.scrolled .nav__logo img { height: 55px; }
+    .nav__right { display: flex; gap: 0.6rem; }
+    .btn-gold {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      background: linear-gradient(135deg, #c89b2e 0%, #e4b03e 25%, #f5d574 50%, #e4b03e 75%, #c89b2e 100%);
+      background-size: 200% 200%;
+      color: var(--navy);
+      padding: 0.65rem 1.4rem;
+      border-radius: var(--r-sm);
+      border: none;
+      cursor: pointer;
+      transition: all 0.4s var(--ease);
+    }
+    .btn-gold:hover { background-position: 100% 100%; transform: translateY(-1px); box-shadow: 0 4px 18px rgba(228,176,62,0.35); }
+    .btn-outline-gold {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      background: transparent;
+      color: var(--white);
+      padding: 0.65rem 1.4rem;
+      border-radius: var(--r-sm);
+      border: 1px solid rgba(228,176,62,0.4);
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+    }
+    .btn-outline-gold:hover { border-color: var(--gold); background: rgba(228,176,62,0.08); }
+    .nav__toggle { display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; padding:4px; }
+    .nav__toggle span { width:22px; height:1.5px; background:var(--white); }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background:
+        linear-gradient(180deg, rgba(0,0,49,0.4) 0%, rgba(0,0,49,0.6) 100%),
+        url('images/hero-building.jpg') center/cover no-repeat;
+      padding: 1.5rem 2rem 2rem;
+    }
+    .hero__content { max-width: 780px; }
+    .hero__title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .hero__sub {
+      font-size: clamp(1.05rem, 1.5vw, 1.18rem);
+      font-weight: 400;
+      color: var(--text-light);
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.85;
+    }
+    .hero__actions { margin-top: 0.5rem; }
+    .hero__actions .btn-gold {
+      padding: 1rem 2.2rem;
+      font-size: 0.82rem;
+      display: inline-block;
+    }
+
+    /* ===== INQUIRY FORM SECTION ===== */
+    .inquiry {
+      background: var(--navy);
+      padding: clamp(4rem, 8vw, 6.5rem) 0;
+    }
+    .inquiry__inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .inquiry__eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .inquiry__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .inquiry__sub {
+      font-size: 1.12rem;
+      font-weight: 400;
+      color: var(--text-light);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.85;
+    }
+    .inquiry__form {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(228,176,62,0.12);
+      border-radius: var(--r-md);
+      padding: clamp(2rem, 4vw, 2.75rem);
+      text-align: left;
+    }
+    .inquiry__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .inquiry__field { margin-bottom: 1rem; }
+    .inquiry__field:last-of-type { margin-bottom: 0; }
+    .inquiry__label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.02em;
+    }
+    .inquiry__input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--r-sm);
+      background: rgba(255,255,255,0.06);
+      color: var(--white);
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.98rem;
+      transition: border-color 0.3s;
+    }
+    .inquiry__input::placeholder { color: rgba(255,255,255,0.3); }
+    .inquiry__input:focus { outline: none; border-color: var(--gold); background: rgba(255,255,255,0.08); }
+    .inquiry__consent {
+      margin-top: 1.75rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .inquiry__checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+    .inquiry__checkbox input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+    .inquiry__checkbox-text {
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+    }
+    .inquiry__checkbox-text a {
+      color: var(--gold);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .inquiry__disclaimer {
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.65;
+      margin-top: 1rem;
+    }
+    .inquiry__submit {
+      margin-top: 1.75rem;
+      width: 100%;
+      padding: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      background: linear-gradient(135deg, #c89b2e 0%, #e4b03e 25%, #f5d574 50%, #e4b03e 75%, #c89b2e 100%);
+      background-size: 200% 200%;
+      color: var(--navy);
+      border: none;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      transition: all 0.4s var(--ease);
+    }
+    .inquiry__submit:hover { background-position: 100% 100%; transform: translateY(-1px); box-shadow: 0 4px 18px rgba(228,176,62,0.35); }
+
+    /* ===== FORM SUCCESS (inline thank-you) ===== */
+    .form-success { display: none; text-align: center; padding: 1rem 0; color: var(--white); }
+    .form-success.show { display: block; animation: successIn 0.5s var(--ease); }
+    @keyframes successIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .form-success__icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: linear-gradient(135deg, #c89b2e 0%, #e4b03e 50%, #c89b2e 100%);
+      color: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .form-success__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 2.5vw, 1.85rem);
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+    .form-success__body {
+      color: var(--text-light);
+      font-size: 1.05rem; line-height: 1.8;
+      max-width: 480px; margin: 0 auto 1rem;
+    }
+    .form-success__body em { font-style: italic; color: var(--gold); }
+    .form-success__alt {
+      font-size: 0.95rem;
+      color: var(--text-lighter);
+      margin-top: 1rem;
+    }
+    .form-success__alt a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+    /* Hide reCAPTCHA badge — attribution shown in footer */
+    .grecaptcha-badge { visibility: hidden !important; }
+
+    /* ===== SCHEDULE / CALENDLY ===== */
+    .schedule {
+      background: var(--navy);
+      padding: clamp(4rem, 8vw, 6.5rem) 0 clamp(3rem, 6vw, 5rem);
+      border-top: 1px solid rgba(228,176,62,0.08);
+    }
+    .schedule__inner { max-width: 1200px; margin: 0 auto; }
+    .schedule__copy { text-align: left; }
+    .schedule__eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .schedule__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .schedule__heading em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .schedule__sub {
+      font-size: 1.12rem;
+      font-weight: 400;
+      color: var(--text-light);
+      max-width: 560px;
+      margin: 0 0 2rem;
+      line-height: 1.85;
+    }
+    .schedule__benefits {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .schedule__benefits li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      font-family: 'Manrope', sans-serif;
+      font-size: 1rem;
+      color: var(--text-light);
+      line-height: 1.55;
+    }
+    .schedule__benefits svg {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      margin-top: 3px;
+      color: var(--gold);
+    }
+    .schedule__signal {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.85;
+      margin: 0;
+    }
+    .schedule__signal::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+      vertical-align: middle;
+      margin-right: 0.75rem;
+      opacity: 0.6;
+    }
+    .schedule__widget {
+      background: var(--white);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(228,176,62,0.18);
+    }
+    @media (min-width: 900px) {
+      .schedule__inner {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: 3.5rem;
+        align-items: center;
+      }
+      .schedule__sub { margin-bottom: 2rem; }
+    }
+    @media (max-width: 899px) {
+      .schedule__copy { text-align: center; }
+      .schedule__sub { margin-left: auto; margin-right: auto; }
+      .schedule__benefits { max-width: 480px; margin-left: auto; margin-right: auto; }
+      .schedule__benefits li { text-align: left; }
+      .schedule__widget { margin-top: 2.5rem; }
+    }
+    .schedule__widget .calendly-inline-widget { min-width: 320px; height: 760px; width: 100%; }
+    @media (max-width: 640px) {
+      .schedule__widget .calendly-inline-widget { height: 1080px; }
+    }
+    /* Placeholder shown when consent has not been granted */
+    .schedule__placeholder {
+      min-height: 400px;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1rem;
+      color: var(--navy);
+      background: var(--white);
+    }
+    .schedule__placeholder p { max-width: 480px; color: var(--gray-700); line-height: 1.7; }
+    .schedule__placeholder-btn {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em;
+      background: linear-gradient(135deg, #c89b2e 0%, #e4b03e 25%, #f5d574 50%, #e4b03e 75%, #c89b2e 100%);
+      background-size: 200% 200%;
+      color: var(--navy);
+      padding: 0.9rem 1.8rem;
+      border: none; border-radius: var(--r-sm); cursor: pointer;
+      transition: all 0.4s var(--ease);
+    }
+    .schedule__placeholder-btn:hover { background-position: 100% 100%; transform: translateY(-1px); box-shadow: 0 4px 18px rgba(228,176,62,0.35); }
+
+    /* ===== COOKIE CONSENT BANNER ===== */
+    .consent {
+      position: fixed; left: 1rem; right: 1rem; bottom: 1rem;
+      max-width: 780px; margin: 0 auto;
+      background: var(--navy);
+      color: var(--white);
+      border: 1px solid rgba(228,176,62,0.25);
+      border-radius: var(--r-md);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+      padding: 1.25rem 1.4rem;
+      z-index: 1000;
+      display: none;
+      font-size: 0.92rem; line-height: 1.6;
+    }
+    .consent.is-visible { display: block; animation: consentIn 0.4s var(--ease); }
+    @keyframes consentIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .consent__body { display: grid; grid-template-columns: 1fr auto; gap: 1.25rem; align-items: center; }
+    .consent__text { color: var(--text-light); font-size: 0.9rem; }
+    .consent__text strong { color: var(--white); font-weight: 600; }
+    .consent__text a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+    .consent__actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .consent__btn {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em;
+      padding: 0.7rem 1.2rem;
+      border-radius: var(--r-sm);
+      border: 1px solid rgba(228,176,62,0.4);
+      background: transparent; color: var(--white);
+      cursor: pointer; transition: all 0.3s var(--ease);
+      white-space: nowrap;
+    }
+    .consent__btn:hover { border-color: var(--gold); background: rgba(228,176,62,0.08); }
+    .consent__btn--primary {
+      background: linear-gradient(135deg, #c89b2e 0%, #e4b03e 25%, #f5d574 50%, #e4b03e 75%, #c89b2e 100%);
+      background-size: 200% 200%;
+      color: var(--navy); border: none;
+    }
+    .consent__btn--primary:hover { background-position: 100% 100%; }
+    @media (max-width: 640px) {
+      .consent__body { grid-template-columns: 1fr; }
+      .consent__actions { justify-content: stretch; }
+      .consent__btn { flex: 1 1 auto; }
+    }
+
+    /* Footer cookie link */
+    .footer__cookie-link {
+      background: none; border: none; cursor: pointer;
+      color: inherit; font: inherit; padding: 0;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+
+    /* ===== FAQ ===== */
+    .faq {
+      background: var(--cream);
+      padding: clamp(4rem, 8vw, 6.5rem) 0;
+    }
+    .faq__inner { max-width: 960px; margin: 0 auto; }
+    .faq__header { text-align: center; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+    .faq__eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.25rem;
+    }
+    .faq__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      font-weight: 500; color: var(--navy);
+      line-height: 1.2; margin-bottom: 1rem;
+    }
+    .faq__heading em { font-style: italic; color: var(--gold); }
+    .faq__sub {
+      font-size: 1.08rem; color: var(--gray-700);
+      max-width: 640px; margin: 0 auto; line-height: 1.8;
+    }
+    .faq__list {
+      border-top: 1px solid rgba(0,0,49,0.08);
+    }
+    .faq__item {
+      border-bottom: 1px solid rgba(0,0,49,0.08);
+    }
+    .faq__item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1.35rem 3rem 1.35rem 0.25rem;
+      position: relative;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.05rem, 1.5vw, 1.22rem);
+      font-weight: 500;
+      color: var(--navy);
+      line-height: 1.4;
+      transition: color 0.3s var(--ease);
+    }
+    .faq__item summary::-webkit-details-marker { display: none; }
+    .faq__item summary:hover { color: #c89b2e; }
+    .faq__item summary::after {
+      content: '';
+      position: absolute;
+      right: 0.5rem; top: 50%;
+      width: 12px; height: 12px;
+      border-right: 1.5px solid var(--gold);
+      border-bottom: 1.5px solid var(--gold);
+      transform: translateY(-70%) rotate(45deg);
+      transition: transform 0.35s var(--ease);
+    }
+    .faq__item[open] summary::after {
+      transform: translateY(-30%) rotate(-135deg);
+    }
+    .faq__answer {
+      padding: 0 3rem 1.5rem 0.25rem;
+      font-family: 'Manrope', sans-serif;
+      font-size: 1rem;
+      color: var(--gray-700);
+      line-height: 1.8;
+      animation: faqIn 0.35s var(--ease);
+    }
+    @keyframes faqIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    .faq__footer {
+      text-align: center;
+      margin-top: clamp(2rem, 4vw, 3rem);
+      font-size: 1rem;
+      color: var(--gray-700);
+    }
+    .faq__footer a {
+      color: var(--navy);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    @media (max-width: 640px) {
+      .faq__item summary { padding-right: 2.25rem; font-size: 1.02rem; }
+      .faq__answer { padding-right: 2.25rem; }
+    }
+
+    /* ===== INTRO ===== */
+    .intro {
+      background: var(--navy);
+      padding: clamp(4rem, 8vw, 6.5rem) 0;
+      text-align: center;
+    }
+    .intro__eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
+    .intro__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 2.8vw, 2rem);
+      font-weight: 400;
+      color: var(--white);
+      max-width: 760px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.65;
+    }
+    .intro__sub {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-lighter);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* ===== VIDEO ===== */
+    .video-section {
+      background: var(--navy);
+      padding: 0 0 clamp(4rem, 8vw, 6.5rem);
+    }
+    .video-section__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 4vw, 3.5rem);
+      align-items: center;
+    }
+    .video-section__text { }
+    .video-section__label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .video-section__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+    .video-section__desc {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--text-light);
+      line-height: 1.85;
+    }
+    .video-wrap {
+      position: relative;
+      border-radius: var(--r-md);
+      overflow: hidden;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+      aspect-ratio: 16/9;
+      background: #000;
+      cursor: pointer;
+    }
+    .video-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-wrap__play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,49,0.3);
+      transition: background 0.4s var(--ease);
+      z-index: 2;
+    }
+    .video-wrap:hover .video-wrap__play {
+      background: rgba(0,0,49,0.15);
+    }
+    .video-wrap__play-btn {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: rgba(228,176,62,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s var(--ease), background 0.3s;
+      backdrop-filter: blur(4px);
+    }
+    .video-wrap:hover .video-wrap__play-btn {
+      transform: scale(1.08);
+      background: var(--gold);
+    }
+    .video-wrap__play-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--navy);
+      margin-left: 3px;
+    }
+    .video-wrap.playing .video-wrap__play {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ===== 3D RENDERINGS ===== */
+    .renderings {
+      background: var(--cream);
+      padding: clamp(4rem, 8vw, 6.5rem) 0;
+    }
+    .renderings__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 4vw, 3.5rem);
+      align-items: center;
+    }
+    .renderings__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+    .renderings__desc {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--gray-500);
+      line-height: 1.85;
+    }
+
+    /* ===== BENEFITS (TABBED) ===== */
+    .benefits {
+      background: var(--cream);
+      padding: clamp(3.5rem, 7vw, 5.5rem) 0;
+    }
+    .benefits__header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .benefits__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+    .benefits__sub {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--gray-500);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .benefits__tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(0,0,49,0.1);
+    }
+    .benefits__tab {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--gray-500);
+      padding: 1rem 2rem;
+      cursor: pointer;
+      border: none;
+      background: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .benefits__tab::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.3s var(--ease);
+    }
+    .benefits__tab:hover { color: var(--navy); }
+    .benefits__tab.active { color: var(--gold); }
+    .benefits__tab.active::after { transform: scaleX(1); }
+    .benefits__panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 4vw, 3.5rem);
+      align-items: center;
+    }
+    .benefits__panel-item { display: none; }
+    .benefits__panel-item.active { display: contents; }
+    .benefits__panel-img {
+      border-radius: var(--r-md);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+    .benefits__panel-img img { width:100%; height:100%; object-fit:cover; }
+    .benefits__panel-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+    .benefits__panel-desc {
+      font-size: 1.05rem;
+      color: var(--gray-500);
+      line-height: 1.85;
+    }
+
+    /* ===== DINING ===== */
+    .dining {
+      background: var(--navy);
+      padding: clamp(4rem, 8vw, 6.5rem) 0;
+    }
+    .dining__layout {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: clamp(2rem, 4vw, 3.5rem);
+      align-items: start;
+    }
+    .dining__image {
+      border-radius: var(--r-md);
+      overflow: hidden;
+      aspect-ratio: 3/4;
+    }
+    .dining__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease);
+    }
+    .dining__image:hover img { transform: scale(1.03); }
+    .dining__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+    }
+    .dining__intro {
+      font-size: 1.12rem;
+      font-weight: 400;
+      color: var(--text-light);
+      margin-bottom: 2.25rem;
+      line-height: 1.85;
+    }
+    .dining__features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .dining-feature {
+      background: rgba(255,255,255,0.035);
+      border-radius: var(--r-sm);
+      padding: 1.35rem;
+      border: 1px solid rgba(228,176,62,0.08);
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .dining-feature:hover { border-color: rgba(228,176,62,0.25); background: rgba(255,255,255,0.05); }
+    .dining-feature__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.12rem;
+      font-weight: 500;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .dining-feature__desc {
+      font-size: 0.98rem;
+      font-weight: 400;
+      color: var(--text-lighter);
+      line-height: 1.8;
+    }
+
+    /* ===== CTA BANNER ===== */
+    .cta-banner {
+      background: var(--cream);
+      padding: clamp(4rem, 7vw, 5.5rem) 0;
+      text-align: center;
+    }
+    .cta-banner__star { width: 44px; height: 44px; margin: 0 auto 2rem; opacity: 0.7; }
+    .cta-banner__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 500;
+      color: var(--navy);
+      max-width: 580px;
+      margin: 0 auto 1rem;
+    }
+    .cta-banner__sub {
+      font-size: 1.12rem;
+      font-weight: 400;
+      color: var(--gray-500);
+      max-width: 500px;
+      margin: 0 auto 2.25rem;
+      line-height: 1.85;
+    }
+    .cta-banner__buttons { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+    .btn-navy {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.8rem 1.8rem;
+      border-radius: var(--r-sm);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+    }
+    .btn-navy:hover { background: var(--navy-light); transform: translateY(-1px); }
+    .btn-outline-navy {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      background: transparent;
+      color: var(--navy);
+      padding: 0.8rem 1.8rem;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--navy);
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+    }
+    .btn-outline-navy:hover { background: var(--navy); color: var(--white); }
+
+    /* ===== FAQ LINK ===== */
+    .faq-link { text-align: center; padding: 2.5rem 0; background: var(--cream); }
+    .faq-link a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--navy);
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+      transition: color 0.3s;
+    }
+    .faq-link a:hover { color: var(--gold); }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--navy);
+      padding: 3.5rem 0 2rem;
+    }
+    .footer__top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    .footer__logo img { height: 44px; margin-bottom: 1rem; }
+    .footer__brand-text {
+      font-size: 0.92rem;
+      font-weight: 400;
+      color: var(--text-lighter);
+      line-height: 1.7;
+      max-width: 250px;
+    }
+    .footer__col-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.64rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .footer__links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer__links a { font-size: 0.92rem; font-weight: 400; color: var(--text-lighter); transition: color 0.3s; }
+    .footer__links a:hover { color: var(--white); }
+    .footer__bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.75rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer__copy { font-size: 0.74rem; color: rgba(255,255,255,0.25); }
+    .footer__legal { display: flex; gap: 2rem; }
+    .footer__legal a { font-size: 0.74rem; color: rgba(255,255,255,0.25); transition: color 0.3s; }
+    .footer__legal a:hover { color: rgba(255,255,255,0.5); }
+
+    /* ===== REVEAL ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .dining__layout { grid-template-columns: 1fr; }
+      .dining__image { max-height: 400px; aspect-ratio: 16/9; }
+      .footer__top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav__links, .nav__left { display: none; }
+      .nav__toggle { display: flex; }
+      .nav__logo { position: relative; left: auto; transform: none; }
+      .benefits__panel { grid-template-columns: 1fr; }
+      .benefits__tabs { flex-wrap: wrap; }
+      .video-section__grid { grid-template-columns: 1fr; }
+      .renderings__grid { grid-template-columns: 1fr; }
+      .dining__features { grid-template-columns: 1fr; }
+      .footer__top { grid-template-columns: 1fr; }
+      .footer__bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .inquiry__row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZJB5P84" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <p>A Limited Number Of Memberships Are Still Available. <a href="#benefits">Member Benefits</a></p>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="container nav__inner">
+      <div class="nav__left">
+        <ul class="nav__links">
+          <li><a href="#experience" class="nav__link">The Society</a></li>
+          <li><a href="#benefits" class="nav__link">Benefits</a></li>
+          <li><a href="#dining" class="nav__link">Dining</a></li>
+          <li><a href="#schedule" class="nav__link">Book A Call</a></li>
+        </ul>
+      </div>
+      <a href="/" class="nav__logo">
+        <img src="images/Copy-of-sixty-two-gradient-4-in.pdf-640w.png" alt="THE SIXTY TWO Society Vail logo">
+      </a>
+      <div class="nav__right">
+        <a href="#schedule" class="btn-gold">Schedule A Call</a>
+        <a href="#inquiry" class="btn-outline-gold">Request Info</a>
+      </div>
+      <button class="nav__toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__content">
+      <h1 class="hero__title reveal">Elevate Your Alpine Club Experience In Vail</h1>
+      <p class="hero__sub reveal reveal-d2">At only sixty-two memberships, this independently owned, boutique club and full service restaurant embodies a new standard of mountain access, culinary mastery, and meaningful connection, just steps from Gondola One.</p>
+      <div class="hero__actions reveal reveal-d3">
+        <a href="#inquiry" class="btn-gold">Request Exclusive Information</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="container">
+      <p class="intro__eyebrow reveal">Exclusive Opportunity</p>
+      <h2 class="intro__heading reveal reveal-d1">THE SIXTY TWO&trade; <em>Society</em> is located at the premier location in Vail Village, at the base of Vail Mountain just steps from Gondola One.</h2>
+      <p class="intro__sub reveal reveal-d2">The Society is tailored for those who appreciate the finer things in life and seek an unparalleled level of personalized service.</p>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section class="video-section" id="experience">
+    <div class="container">
+      <div class="video-section__grid">
+        <div class="video-section__text reveal">
+          <p class="video-section__label">Experience The Society</p>
+          <h2 class="video-section__heading">A New Standard of Mountain Access, Culinary Mastery, and Meaningful Connection</h2>
+          <p class="video-section__desc">At only sixty-two memberships, THE SIXTY TWO&trade; <em>Society</em> offers an intimate alpine club experience unlike anything else in Vail &mdash; where world-class dining, bespoke concierge, and ski-in/ski-out access come together for those who value connection over crowds.</p>
+        </div>
+        <div class="video-wrap reveal reveal-d1" data-video="heroVideo">
+          <video id="heroVideo" preload="metadata" playsinline poster="images/video-poster.jpg">
+            <source src="Video.mp4" type="video/mp4">
+          </video>
+          <div class="video-wrap__play">
+            <div class="video-wrap__play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS (TABBED) -->
+  <section class="benefits" id="benefits">
+    <div class="container">
+      <div class="benefits__header reveal">
+        <h2 class="benefits__heading">You're Invited To The Best Of Vail</h2>
+        <p class="benefits__sub">Elevate your mountain lifestyle and immerse yourself in a world of privileged access, personalized service, and culinary artistry.</p>
+      </div>
+      <div class="benefits__tabs reveal reveal-d1">
+        <button class="benefits__tab active" data-tab="ski">Ski Access</button>
+        <button class="benefits__tab" data-tab="concierge">Concierge</button>
+        <button class="benefits__tab" data-tab="transport">Transportation</button>
+      </div>
+      <div class="benefits__panel reveal reveal-d2">
+        <div class="benefits__panel-item active" data-panel="ski">
+          <div class="benefits__panel-img">
+            <img src="https://lirp.cdn-website.com/5434ceae/dms3rep/multi/opt/download+%2896%29-1920w.jpeg" alt="Exclusive ski access at THE SIXTY TWO" loading="lazy">
+          </div>
+          <div>
+            <h3 class="benefits__panel-title">Exclusive Ski Access &amp; Ski Valet Services in Partnership with Gorsuch</h3>
+            <p class="benefits__panel-desc">Fully embrace the day's adventures with ease. Members' equipment will be staged and ready to go at THE SIXTY TWO&trade; <em>Society</em>. The Gorsuch team will manage all ski-membership needs including ski storage, valet, demos, boot warming, rentals, and more.</p>
+          </div>
+        </div>
+        <div class="benefits__panel-item" data-panel="concierge">
+          <div class="benefits__panel-img">
+            <img src="https://lirp.cdn-website.com/5434ceae/dms3rep/multi/opt/6791b3ccc6d03701ecbcb816_CONCIERGE-1920w.webp" alt="Personalized concierge services" loading="lazy">
+          </div>
+          <div>
+            <h3 class="benefits__panel-title">Personalized Concierge Services</h3>
+            <p class="benefits__panel-desc">Enjoy your Society concierge services, available in person, through THE SIXTY TWO&trade; <em>Society</em>, or via a dedicated Society-only number. Effortlessly schedule personal transportation, secure priority dining reservations, and arrange a variety of activities tailored to your preferences.</p>
+          </div>
+        </div>
+        <div class="benefits__panel-item" data-panel="transport">
+          <div class="benefits__panel-img">
+            <img src="https://lirp.cdn-website.com/5434ceae/dms3rep/multi/opt/679a5477795d3572c313e3cc_luxury-transpo-1-915b3a0f-1920w.webp" alt="Complimentary luxury transportation" loading="lazy">
+          </div>
+          <div>
+            <h3 class="benefits__panel-title">Complimentary Luxury Transportation</h3>
+            <p class="benefits__panel-desc">Experience private luxury SUV transportation for members traveling to and from THE SIXTY TWO&trade; <em>Society</em>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DINING -->
+  <section class="dining" id="dining">
+    <div class="container">
+      <div class="dining__layout">
+        <div class="dining__image reveal">
+          <img src="https://lirp.cdn-website.com/5434ceae/dms3rep/multi/opt/6791b47e0422ceee7303e25a_DINING-1920w.webp" alt="THE SIXTY TWO Restaurant fine dining" loading="lazy">
+        </div>
+        <div>
+          <h2 class="dining__heading reveal">The Consummate Dining Experience</h2>
+          <p class="dining__intro reveal reveal-d1">Welcome to THE SIXTY TWO&trade; Restaurant, a sophisticated and intimate expression of great food, ardent hospitality and bespoke service that is as exceptional and unique as Vail itself.</p>
+          <div class="dining__features">
+            <div class="dining-feature reveal">
+              <h4 class="dining-feature__title">World-Class Dining</h4>
+              <p class="dining-feature__desc">THE SIXTY TWO&trade; Restaurant will be serving breakfast, lunch, apr&egrave;s ski, and dinner, catering to those who desire superior dining and personalized service.</p>
+            </div>
+            <div class="dining-feature reveal reveal-d1">
+              <h4 class="dining-feature__title">Seasonally Inspired Menus</h4>
+              <p class="dining-feature__desc">Our contemporary cuisine will showcase complex flavors, textures, and taste combinations. From a multi-course chef's menu to a classic cheeseburger, every dish will be crafted with meticulous care.</p>
+            </div>
+            <div class="dining-feature reveal reveal-d2">
+              <h4 class="dining-feature__title">2000-Bottle Wine Cellar</h4>
+              <p class="dining-feature__desc">Curated by Doug Frost, one of only four individuals in the world to hold both the Master Sommelier &amp; Master of Wine distinctions. Our floor-to-ceiling glass wine wall is sure to steal the spotlight.</p>
+            </div>
+            <div class="dining-feature reveal reveal-d3">
+              <h4 class="dining-feature__title">Signature Cocktail Menu</h4>
+              <p class="dining-feature__desc">Composed by a premier mixologist, the unique and stylish cocktails will embody sophistication and elegance, offering a truly refined experience.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3D RENDERINGS -->
+  <section class="renderings" id="renderings">
+    <div class="container">
+      <div class="renderings__grid">
+        <div class="video-wrap reveal" data-video="renderingVideo">
+          <video id="renderingVideo" preload="metadata" playsinline poster="images/3d-poster.jpg">
+            <source src="3d-rendering.mp4" type="video/mp4">
+          </video>
+          <div class="video-wrap__play">
+            <div class="video-wrap__play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="reveal reveal-d1">
+          <h2 class="renderings__heading">3D Renderings For THE SIXTY TWO&trade; <em>Society</em></h2>
+          <p class="renderings__desc">At THE SIXTY TWO&trade; <em>Society</em> Vail, every detail matters. Our 3D renderings bring your future experience to life before it's built, offering a clear vision of the spaces, atmosphere, and design elements that define our community. These immersive visuals allow you to explore and connect with the vision of THE SIXTY TWO&trade; <em>Society</em>, ensuring that what you see is exactly what you'll enjoy when you arrive.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK A CALL / CALENDLY -->
+  <section class="schedule" id="schedule">
+    <div class="container">
+      <div class="schedule__inner">
+        <div class="schedule__copy">
+          <p class="schedule__eyebrow reveal">Book A Call</p>
+          <h2 class="schedule__heading reveal reveal-d1">Schedule A <em>Private Conversation</em></h2>
+          <p class="schedule__sub reveal reveal-d2">A quiet, unhurried introduction to The Society &mdash; independently owned, capped at sixty-two members, and built for those who prefer Vail on their own terms.</p>
+          <ul class="schedule__benefits reveal reveal-d2">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>A 15&ndash;20 minute private call with a founding team member</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>No commitment &mdash; simply clarity on whether The Society is right for you</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Early access to founding-member pricing and benefits</span>
+            </li>
+          </ul>
+          <p class="schedule__signal reveal reveal-d3">Typical response within 24 hours</p>
+        </div>
+        <div class="schedule__widget reveal reveal-d3" id="scheduleWidget">
+          <!-- Placeholder shown until analytics/marketing cookies are accepted -->
+          <div class="schedule__placeholder" id="schedulePlaceholder">
+            <p><strong>Calendar powered by Calendly</strong><br>To book a call without leaving this page, please accept cookies. Calendly sets its own cookies to manage your booking.</p>
+            <button type="button" class="schedule__placeholder-btn" id="enableCalendarBtn">Accept &amp; Load Calendar</button>
+            <p style="font-size:0.82rem;opacity:0.7;">Prefer not to accept? <a href="https://www.thesixtytwovail.com/schedule-a-call-calendar" target="_blank" rel="noopener" style="color:var(--navy);text-decoration:underline;">Open booking page in a new tab</a>.</p>
+          </div>
+          <!-- Calendly embed is injected here by JS once consent is granted -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ LINK -->
+  <div class="faq-link">
+    <a href="#faq">See Our Membership FAQs &rarr;</a>
+  </div>
+
+  <!-- INQUIRY FORM -->
+  <section class="inquiry" id="inquiry">
+    <div class="container">
+      <div class="inquiry__inner">
+        <p class="inquiry__eyebrow reveal">Take The First Step</p>
+        <h2 class="inquiry__heading reveal reveal-d1">Request Exclusive Membership Information</h2>
+        <p class="inquiry__sub reveal reveal-d2">Share your details below and we'll send you an exclusive look at what membership at THE SIXTY TWO&trade; <em>Society</em> offers &mdash; including benefits, pricing, and upcoming events.</p>
+        <form class="inquiry__form reveal reveal-d3" action="https://myaieditor.com/api/form-notify" method="POST" data-ajax>
+          <div class="form-fields">
+            <input type="hidden" name="site_slug" value="62vail">
+            <input type="hidden" name="form_type" value="membership-inquiry">
+            <input type="hidden" name="recaptcha_token" id="recaptcha_token">
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <div class="inquiry__row">
+              <div>
+                <label class="inquiry__label" for="firstName">First Name</label>
+                <input class="inquiry__input" type="text" id="firstName" name="first_name" placeholder="First Name" required>
+              </div>
+              <div>
+                <label class="inquiry__label" for="lastName">Last Name</label>
+                <input class="inquiry__input" type="text" id="lastName" name="last_name" placeholder="Last Name" required>
+              </div>
+            </div>
+            <div class="inquiry__field">
+              <label class="inquiry__label" for="email">Email</label>
+              <input class="inquiry__input" type="email" id="email" name="email" placeholder="Email Address" required>
+            </div>
+            <div class="inquiry__field">
+              <label class="inquiry__label" for="phone">Phone Number</label>
+              <input class="inquiry__input" type="tel" id="phone" name="phone" placeholder="(555) 555-5555">
+            </div>
+            <div class="inquiry__consent">
+              <label class="inquiry__checkbox">
+                <input type="checkbox" name="sms_consent" required>
+                <span class="inquiry__checkbox-text">I agree to receive membership updates, event invitations, and exclusive information from THE SIXTY TWO&trade; <em>Society</em> via email and SMS to the phone number provided. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to cancel at any time. View our <a href="https://www.thesixtytwovail.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="https://www.thesixtytwovail.com/terms-of-use" target="_blank" rel="noopener">Terms of Service</a>.</span>
+              </label>
+            </div>
+            <p class="inquiry__disclaimer">By submitting this form, you consent to receive automated marketing and informational text messages from THE SIXTY TWO&trade; <em>Society</em> at the phone number provided. Consent is not a condition of purchase. You may opt out at any time by replying STOP. For help, reply HELP or contact us at <a href="mailto:info@thesixtytwovail.com" style="color: rgba(255,255,255,0.5);">info@thesixtytwovail.com</a>.</p>
+            <button type="submit" class="inquiry__submit">Request Exclusive Information</button>
+          </div>
+          <div class="form-success">
+            <div class="form-success__icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3 class="form-success__heading">Information Requested</h3>
+            <p class="form-success__body">Thank you for your interest in THE SIXTY TWO&trade; <em>Society</em>. A member of our founding team will reach out personally within one business day.</p>
+            <p class="form-success__alt">Prefer to speak sooner? <a href="#schedule">Book a private call &rarr;</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="faq__inner">
+        <div class="faq__header reveal">
+          <p class="faq__eyebrow">Frequently Asked</p>
+          <h2 class="faq__heading">Your Questions, <em>Answered</em></h2>
+          <p class="faq__sub">Everything you need to know about membership, access, timing, and the vision behind The Society.</p>
+        </div>
+        <div class="faq__list">
+          <details class="faq__item reveal">
+            <summary>What is THE SIXTY TWO&trade; <em>Society</em> Vail?</summary>
+            <div class="faq__answer">THE SIXTY TWO&trade; <em>Society</em> is a privately owned, membership-based social, dining, and hospitality club located at the base of Gondola One in Vail Village.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Who is THE SIXTY TWO&trade; <em>Society</em> designed for?</summary>
+            <div class="faq__answer">Designed for individuals and families with a strong connection to Vail, including residents, second homeowners, and frequent visitors.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Who is at the helm of THE SIXTY TWO&trade; <em>Society</em>?</summary>
+            <div class="faq__answer">Founded and operated by Brad Kaemmer, a Vail native and hospitality professional.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>What is the vision for arrival?</summary>
+            <div class="faq__answer">A seamless slope side entry connecting ski access, dining, and social spaces, including a convivial outdoor fire pit.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>What amenities and services are available to Members?</summary>
+            <div class="faq__answer">Includes ski storage / ski valet and year-round dining, concierge services, transportation, social events, and reciprocal privileges.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>What ski services are included with membership?</summary>
+            <div class="faq__answer">Ski storage, ski valet, boot warming, rentals, and retail access through Gorsuch.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>How do transportation, reservations, and events work?</summary>
+            <div class="faq__answer">Managed through concierge team and Member mobile app.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Is THE SIXTY TWO&trade; Restaurant open to the public?</summary>
+            <div class="faq__answer">Accessible to the public, but Members receive priority across reservations and seating.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>What membership designations are available?</summary>
+            <div class="faq__answer">Founder Society Membership (Non-Refundable), Founder Circle Society Membership (Refundable).</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>How many memberships will be offered?</summary>
+            <div class="faq__answer">A total of 62 memberships are offered.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Is there a waiting list?</summary>
+            <div class="faq__answer">Not currently. A waiting list may be established once capacity is reached.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Who is permitted to access THE SIXTY TWO&trade; <em>Society</em> Vail?</summary>
+            <div class="faq__answer">Members, accompanied guests, and adult children within defined guidelines.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Are there annual dues?</summary>
+            <div class="faq__answer">Yes. Annual dues apply to most membership types.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Is this an equity club or investment?</summary>
+            <div class="faq__answer">No. Membership is a revocable license and does not include ownership.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Can membership be included in a real estate transaction?</summary>
+            <div class="faq__answer">Yes. Membership may be incorporated into a real estate purchase or sale.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Is there a membership option for real estate professionals or builders?</summary>
+            <div class="faq__answer">Yes, subject to approval.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Can memberships be transferred or inherited?</summary>
+            <div class="faq__answer">Yes, in specific scenarios and subject to approval.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>What happens if I resign my membership?</summary>
+            <div class="faq__answer">Members may resign annually; some cases allow prorated refunds.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>How do I apply for membership?</summary>
+            <div class="faq__answer">Through an application process by contacting the Membership team.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>When is the projected opening date?</summary>
+            <div class="faq__answer">Planned to open in Summer 2026.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Why now?</summary>
+            <div class="faq__answer">Opportunity to secure membership before capacity is reached.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Will Members have access during peak season?</summary>
+            <div class="faq__answer">Yes, access is protected by limited membership.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>Is membership year-round or seasonal?</summary>
+            <div class="faq__answer">Year-round with social experiences and dining.</div>
+          </details>
+          <details class="faq__item reveal">
+            <summary>How does THE SIXTY TWO&trade; <em>Society</em> differ from other Vail clubs?</summary>
+            <div class="faq__answer">Locally owned, boutique hospitality experience with limited membership.</div>
+          </details>
+        </div>
+        <p class="faq__footer reveal">Still have questions? <a href="#schedule">Book a private call</a> or <a href="#inquiry">request exclusive information</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div>
+          <div class="footer__logo">
+            <img src="https://lirp.cdn-website.com/5434ceae/dms3rep/multi/opt/675b6327bf04d191b2a9f0a6_Webclip+-+The+Sixty+Two-1920w.png" alt="THE SIXTY TWO">
+          </div>
+          <p class="footer__brand-text">Vail's premier alpine club, steps from Gondola One. Honoring the spirit of December 15, 1962.</p>
+        </div>
+        <div>
+          <h4 class="footer__col-title">The Society</h4>
+          <ul class="footer__links">
+            <li><a href="#inquiry">Membership</a></li>
+            <li><a href="#benefits">Member Benefits</a></li>
+            <li><a href="#experience">The Experience</a></li>
+            <li><a href="#renderings">Interior Design</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer__col-title">Dining</h4>
+          <ul class="footer__links">
+            <li><a href="#dining">The Restaurant</a></li>
+            <li><a href="#dining">Wine Cellar</a></li>
+            <li><a href="https://www.thesixtytwovail.com/schedule-a-call-calendar" target="_blank" rel="noopener">Private Events</a></li>
+            <li><a href="https://www.thesixtytwovail.com/schedule-a-call-calendar" target="_blank" rel="noopener">Reservations</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer__col-title">Connect</h4>
+          <ul class="footer__links">
+            <li><a href="#schedule">Schedule A Call</a></li>
+            <li><a href="#inquiry">Request Info</a></li>
+            <li><a href="https://www.thesixtytwovail.com/" target="_blank" rel="noopener">Visit Full Site</a></li>
+            <li><a href="mailto:info@thesixtytwovail.com">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy">&copy; 2026 THE SIXTY TWO&trade; <em>Society</em>. All rights reserved. &middot; 62Vail.com<br><span style="font-size:11px;opacity:0.55;">Protected by reCAPTCHA. <a href="https://policies.google.com/privacy" style="color:inherit;text-decoration:underline;">Privacy</a> &middot; <a href="https://policies.google.com/terms" style="color:inherit;text-decoration:underline;">Terms</a></span></span>
+        <div class="footer__legal">
+          <a href="https://www.thesixtytwovail.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
+          <a href="https://www.thesixtytwovail.com/terms-of-use" target="_blank" rel="noopener">Terms of Use</a>
+          <button type="button" class="footer__cookie-link" id="openCookieSettings">Cookie Settings</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Benefits tab switching
+    document.querySelectorAll('.benefits__tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        document.querySelectorAll('.benefits__tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.benefits__panel-item').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelector(`[data-panel="${target}"]`).classList.add('active');
+      });
+    });
+
+    // Video play/pause for all .video-wrap elements
+    document.querySelectorAll('.video-wrap').forEach(wrap => {
+      const video = wrap.querySelector('video');
+      if (!video) return;
+      wrap.addEventListener('click', () => {
+        if (video.paused) {
+          video.play();
+          wrap.classList.add('playing');
+        } else {
+          video.pause();
+          wrap.classList.remove('playing');
+        }
+      });
+      video.addEventListener('ended', () => {
+        wrap.classList.remove('playing');
+      });
+    });
+  </script>
+
+  <!-- ===== GDPR CONSENT BANNER ===== -->
+  <aside class="consent" id="consentBanner" role="dialog" aria-labelledby="consentText" aria-describedby="consentText">
+    <div class="consent__body">
+      <p class="consent__text" id="consentText">
+        <strong>We use cookies to elevate your experience.</strong><br>
+        We use essential cookies for site functionality and, with your permission, analytics (Google Analytics), booking (Calendly), and CRM (HubSpot) cookies to improve this site, enable the inline calendar, and keep your contact preferences in sync. You can change your choice anytime via &ldquo;Cookie Settings&rdquo; in the footer. See our <a href="https://www.thesixtytwovail.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>.
+      </p>
+      <div class="consent__actions">
+        <button type="button" class="consent__btn" data-consent="essential">Reject Non-Essential</button>
+        <button type="button" class="consent__btn consent__btn--primary" data-consent="all">Accept All</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== CONSENT + ANALYTICS EVENTS ===== -->
+  <script>
+    (function () {
+      var CONSENT_KEY = 'sixtytwo_consent_v1';
+      var banner = document.getElementById('consentBanner');
+      var placeholder = document.getElementById('schedulePlaceholder');
+      var widgetHost = document.getElementById('scheduleWidget');
+      var enableBtn = document.getElementById('enableCalendarBtn');
+      var settingsBtn = document.getElementById('openCookieSettings');
+      var calendlyLoaded = false;
+      var hubspotLoaded = false;
+
+      function readConsent() {
+        try { return JSON.parse(localStorage.getItem(CONSENT_KEY) || 'null'); } catch (e) { return null; }
+      }
+      function saveConsent(choice) {
+        var payload = { choice: choice, at: new Date().toISOString(), v: 1 };
+        try { localStorage.setItem(CONSENT_KEY, JSON.stringify(payload)); } catch (e) {}
+      }
+      function applyConsent(choice) {
+        var g = choice === 'all' ? 'granted' : 'denied';
+        gtag('consent', 'update', {
+          'ad_storage': g,
+          'ad_user_data': g,
+          'ad_personalization': g,
+          'analytics_storage': g
+        });
+        gtag('event', 'consent_update', { choice: choice });
+        if (choice === 'all') {
+          loadCalendly();
+          loadHubSpot();
+        }
+      }
+
+      function loadHubSpot() {
+        if (hubspotLoaded) return;
+        hubspotLoaded = true;
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.id = 'hs-script-loader';
+        s.async = true;
+        s.defer = true;
+        s.src = '//js.hs-scripts.com/48481800.js';
+        document.body.appendChild(s);
+      }
+      function showBanner() { banner.classList.add('is-visible'); }
+      function hideBanner() { banner.classList.remove('is-visible'); }
+
+      function loadCalendly() {
+        if (calendlyLoaded) return;
+        calendlyLoaded = true;
+        // Swap placeholder for the Calendly embed div
+        if (placeholder) placeholder.remove();
+        var embed = document.createElement('div');
+        embed.className = 'calendly-inline-widget';
+        embed.setAttribute('data-url', 'https://calendly.com/thesixtytwosociety/call?primary_color=e4b03e');
+        embed.style.minWidth = '320px';
+        embed.style.height = '760px';
+        widgetHost.appendChild(embed);
+        // Inject Calendly script
+        var s = document.createElement('script');
+        s.src = 'https://assets.calendly.com/assets/external/widget.js';
+        s.async = true;
+        document.body.appendChild(s);
+      }
+
+      // Consent button handlers
+      document.querySelectorAll('.consent__btn[data-consent]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var choice = btn.getAttribute('data-consent');
+          saveConsent(choice);
+          applyConsent(choice);
+          hideBanner();
+        });
+      });
+      if (enableBtn) {
+        enableBtn.addEventListener('click', function () {
+          saveConsent('all');
+          applyConsent('all');
+          hideBanner();
+        });
+      }
+      if (settingsBtn) {
+        settingsBtn.addEventListener('click', function () {
+          showBanner();
+          gtag('event', 'consent_settings_opened');
+        });
+      }
+
+      // Initial state: show banner only if no prior choice
+      var prior = readConsent();
+      if (!prior) {
+        showBanner();
+      } else if (prior.choice === 'all') {
+        // Re-apply to make sure Calendly loads this session
+        applyConsent('all');
+      }
+
+      /* ===== EVENT TRACKING ===== */
+
+      // 1. CTA clicks (Schedule A Call / Request Info / Request Exclusive Information)
+      function instrumentCta(selector, location, label) {
+        document.querySelectorAll(selector).forEach(function (el) {
+          el.addEventListener('click', function () {
+            gtag('event', 'cta_click', {
+              cta_label: label || (el.textContent || '').trim(),
+              cta_location: location,
+              cta_href: el.getAttribute('href') || ''
+            });
+          });
+        });
+      }
+      instrumentCta('.nav__right .btn-gold', 'nav', 'Schedule A Call');
+      instrumentCta('.nav__right .btn-outline-gold', 'nav', 'Request Info');
+      instrumentCta('.hero__actions a', 'hero', 'Request Exclusive Information');
+      instrumentCta('.footer__links a[href="#schedule"]', 'footer', 'Schedule A Call');
+      instrumentCta('.footer__links a[href="#inquiry"]', 'footer', 'Request Info');
+
+      // 2. Schedule section scrolled into view
+      var scheduleSection = document.getElementById('schedule');
+      if (scheduleSection && 'IntersectionObserver' in window) {
+        var scrolledTo = false;
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting && !scrolledTo) {
+              scrolledTo = true;
+              gtag('event', 'scroll_to_schedule');
+            }
+          });
+        }, { threshold: 0.3 }).observe(scheduleSection);
+      }
+
+      // 3. Calendly postMessage events → GA
+      window.addEventListener('message', function (e) {
+        if (e.origin !== 'https://calendly.com') return;
+        if (!e.data || !e.data.event) return;
+        if (e.data.event === 'calendly.event_type_viewed') {
+          gtag('event', 'calendly_date_selected', { module: 'Calendly' });
+        }
+        if (e.data.event === 'calendly.event_scheduled') {
+          gtag('event', 'generate_lead', { currency: 'USD', value: 0, source: 'Calendly' });
+          gtag('event', 'calendly_booking_completed', { booking_type: 'Sixty Two Booking', module: 'Calendly' });
+        }
+      });
+
+      // 4. Inquiry form: form_start (first focus) + AJAX submit → form-notify
+      var form = document.querySelector('.inquiry__form');
+      if (form) {
+        var started = false;
+        form.querySelectorAll('input, textarea').forEach(function (input) {
+          input.addEventListener('focus', function () {
+            if (started) return;
+            started = true;
+            gtag('event', 'form_start', { form_id: 'inquiry' });
+          }, { once: true });
+        });
+
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          // Honeypot check — bots fill hidden field
+          var honey = form.querySelector('[name="_honey"]');
+          if (honey && honey.value) return;
+
+          var btn = form.querySelector('[type="submit"]');
+          var originalText = btn.textContent;
+          btn.disabled = true;
+          btn.textContent = 'Sending...';
+
+          try {
+            // reCAPTCHA v3 token (wrap in try/catch — don't block submission if it fails)
+            try {
+              if (typeof grecaptcha !== 'undefined' && grecaptcha.execute) {
+                var token = await grecaptcha.execute('6Lck8aQsAAAAALMA-T6nwfkSf7bv4K-mOhkszeKh', { action: 'form_submit' });
+                var tokenField = form.querySelector('[name="recaptcha_token"]');
+                if (tokenField) tokenField.value = token;
+              }
+            } catch (captchaErr) { console.warn('reCAPTCHA error:', captchaErr); }
+
+            var formData = new FormData(form);
+            var data = Object.fromEntries(formData.entries());
+
+            await fetch('https://myaieditor.com/api/form-notify', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data)
+            });
+          } catch (err) {
+            console.error('Form submit error:', err);
+          }
+
+          // Fire analytics after attempt
+          gtag('event', 'generate_lead', { currency: 'USD', value: 0, source: 'Inquiry Form' });
+          gtag('event', 'inquiry_submitted', { form_id: 'inquiry' });
+
+          // Show thank-you regardless of network result (data captured client-side)
+          var fields = form.querySelector('.form-fields');
+          var success = form.querySelector('.form-success');
+          if (fields) fields.style.display = 'none';
+          if (success) success.classList.add('show');
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+      }
+
+      // 5. Video play events
+      document.querySelectorAll('video').forEach(function (v) {
+        v.addEventListener('play', function () {
+          gtag('event', 'video_play', { video_id: v.id || 'unknown' });
+        }, { once: true });
+      });
+
+      // 6. Outbound link clicks
+      document.querySelectorAll('a[href^="http"]').forEach(function (a) {
+        var href = a.getAttribute('href');
+        if (!href || href.indexOf(location.hostname) !== -1) return;
+        a.addEventListener('click', function () {
+          gtag('event', 'outbound_click', { outbound_url: href });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
