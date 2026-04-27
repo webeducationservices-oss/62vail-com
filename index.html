@@ -1061,8 +1061,9 @@
       .footer__top { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
-      /* Hide top announcement bar and tighten nav around logo */
-      .top-bar { display: none; }
+      /* Keep top announcement text, but hide the "Member Benefits" link on mobile */
+      .top-bar a { display: none; }
+      .top-bar p { font-size: 0.72rem; padding: 0 0.5rem; }
       .nav { padding: 5px 0; }
       .nav.scrolled { padding: 5px 0; }
       .nav__logo img { height: 70px; }
@@ -1110,6 +1111,33 @@
       transform: translateY(0);
       transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0s;
     }
+    /* Dedicated close X inside the drawer (always present, no z-index drama) */
+    .mobile-drawer__close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      color: var(--white);
+      cursor: pointer;
+      padding: 0;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+      z-index: 10;
+    }
+    .mobile-drawer__close:hover,
+    .mobile-drawer__close:active {
+      background: rgba(228,176,62,0.18);
+      transform: scale(1.05);
+    }
+    .mobile-drawer__close svg { width: 24px; height: 24px; }
+
     .mobile-drawer__links {
       list-style: none;
       padding: 0;
@@ -1304,6 +1332,12 @@
 
   <!-- MOBILE DRAWER -->
   <aside class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <button class="mobile-drawer__close" id="mobileDrawerClose" aria-label="Close menu" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
     <ul class="mobile-drawer__links">
       <li><a href="#experience" data-drawer-link>The Society</a></li>
       <li><a href="#benefits" data-drawer-link>Benefits</a></li>
@@ -1995,6 +2029,7 @@
       // ===== MOBILE DRAWER =====
       var navToggle = document.querySelector('.nav__toggle');
       var drawer = document.getElementById('mobileDrawer');
+      var drawerClose = document.getElementById('mobileDrawerClose');
       if (navToggle && drawer) {
         function openDrawer() {
           drawer.classList.add('is-open');
@@ -2014,6 +2049,8 @@
           if (drawer.classList.contains('is-open')) closeDrawer();
           else openDrawer();
         });
+        // Dedicated close button inside the drawer
+        if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
         // Close on any link click inside drawer (so anchor scroll happens)
         drawer.querySelectorAll('[data-drawer-link]').forEach(function (a) {
           a.addEventListener('click', closeDrawer);
