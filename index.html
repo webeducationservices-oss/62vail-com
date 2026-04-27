@@ -477,9 +477,11 @@
     /* Anchor target: leave clearance under the sticky nav */
     #scheduleWidget { scroll-margin-top: 90px; }
     #schedule { scroll-margin-top: 90px; }
-    @media (max-width: 640px) {
-      /* Taller on mobile so Calendly's stacked layout fits without internal scroll */
-      .schedule__widget .calendly-inline-widget { height: 1450px; }
+    /* Below 900px the schedule section stacks (1-col), so Calendly stacks its panes too.
+       Give it generous height to fit the longest step (date + time slots + details form)
+       without an internal scrollbar. */
+    @media (max-width: 899px) {
+      .schedule__widget .calendly-inline-widget { height: 1900px; }
       #scheduleWidget { scroll-margin-top: 70px; }
       #schedule { scroll-margin-top: 70px; }
     }
@@ -1886,8 +1888,7 @@
         var embed = document.createElement('div');
         embed.className = 'calendly-inline-widget';
         embed.setAttribute('data-url', 'https://calendly.com/thesixtytwosociety/call?primary_color=e4b03e');
-        embed.style.minWidth = '320px';
-        embed.style.height = '760px';
+        // Height controlled by CSS so mobile breakpoint (1900px) can win over default (760px).
         widgetHost.appendChild(embed);
         // Inject Calendly script
         var s = document.createElement('script');
