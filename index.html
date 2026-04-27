@@ -1062,8 +1062,10 @@
     }
     @media (max-width: 768px) {
       .nav__links, .nav__left { display: none; }
-      .nav__toggle { display: flex; }
+      .nav__right { display: none; } /* moved into drawer on mobile */
+      .nav__toggle { display: flex; z-index: 110; position: relative; }
       .nav__logo { position: relative; left: auto; transform: none; }
+      .nav__inner { justify-content: space-between; }
       .benefits__panel { grid-template-columns: 1fr; }
       .benefits__tabs { flex-wrap: wrap; }
       .video-section__grid { grid-template-columns: 1fr; }
@@ -1071,9 +1073,172 @@
       .dining__features { grid-template-columns: 1fr; }
       .footer__top { grid-template-columns: 1fr; }
       .footer__bottom { flex-direction: column; gap: 1rem; text-align: center; }
+      /* Push footer/body up so floating bar doesn't cover content */
+      body { padding-bottom: 76px; }
     }
     @media (max-width: 480px) {
       .inquiry__row { grid-template-columns: 1fr; }
+    }
+
+    /* ===== MOBILE DRAWER ===== */
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--navy);
+      z-index: 105;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 6rem 2rem 2rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-12px);
+      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0s linear 0.3s;
+      overflow-y: auto;
+    }
+    .mobile-drawer.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0s;
+    }
+    .mobile-drawer__links {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2.5rem;
+      width: 100%;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      text-align: center;
+    }
+    .mobile-drawer__links a {
+      display: block;
+      padding: 1rem 0.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--white);
+      letter-spacing: 0.01em;
+      border-bottom: 1px solid rgba(228,176,62,0.12);
+      transition: color 0.3s var(--ease);
+    }
+    .mobile-drawer__links a:last-child { border-bottom: none; }
+    .mobile-drawer__links a:hover,
+    .mobile-drawer__links a:active { color: var(--gold); }
+    .mobile-drawer__actions {
+      width: 100%;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .mobile-drawer__actions .btn-gold,
+    .mobile-drawer__actions .btn-outline-gold {
+      display: block;
+      text-align: center;
+      padding: 1rem 1.4rem;
+      font-size: 0.92rem;
+    }
+    .mobile-drawer__footer {
+      margin-top: 2.5rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.7;
+    }
+
+    /* Hamburger → X animation */
+    .nav__toggle span {
+      transition: transform 0.3s var(--ease), opacity 0.2s var(--ease), background 0.2s var(--ease);
+      transform-origin: center;
+      background: var(--white);
+    }
+    .nav__toggle.is-active span { background: var(--white) !important; }
+    .nav__toggle.is-active span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav__toggle.is-active span:nth-child(2) { opacity: 0; }
+    .nav__toggle.is-active span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Lock body scroll when drawer open */
+    body.drawer-open { overflow: hidden; }
+    /* Float the toggle above the drawer so the X is clickable + visible */
+    body.drawer-open .nav__toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 200;
+    }
+    body.drawer-open .nav__toggle span { background: var(--white) !important; }
+
+    /* ===== MOBILE CTA BAR (sticky bottom, icon-over-label) ===== */
+    .mobile-cta-bar {
+      display: none;
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 95;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 0;
+      padding: 0;
+      background: var(--navy);
+      border-top: 1px solid rgba(228,176,62,0.25);
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.4);
+      transition: transform 0.4s var(--ease), opacity 0.3s var(--ease);
+    }
+    .mobile-cta-bar__btn {
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.95rem 0.75rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.15;
+      transition: filter 0.25s var(--ease);
+    }
+    .mobile-cta-bar__btn svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 1.8;
+      flex-shrink: 0;
+    }
+    .mobile-cta-bar__btn--secondary {
+      background: transparent;
+      color: var(--white);
+    }
+    .mobile-cta-bar__btn--secondary:active { filter: brightness(1.4); }
+    .mobile-cta-bar__btn--primary {
+      background: linear-gradient(135deg, #c89b2e 0%, #e4b03e 25%, #f5d574 50%, #e4b03e 75%, #c89b2e 100%);
+      background-size: 200% 200%;
+      color: var(--navy);
+      border-top-left-radius: var(--r-md);
+      box-shadow: -8px -8px 24px rgba(228,176,62,0.18);
+      position: relative;
+    }
+    .mobile-cta-bar__btn--primary::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .mobile-cta-bar__btn--primary:active { filter: brightness(1.05); }
+    /* Hide CTA bar after form is submitted */
+    body.form-submitted .mobile-cta-bar { transform: translateY(120%); opacity: 0; pointer-events: none; }
+    /* Hide CTA bar while drawer is open (drawer has its own buttons) */
+    body.drawer-open .mobile-cta-bar { opacity: 0; pointer-events: none; }
+
+    /* Mobile-only: show drawer + floating CTA bar (must come AFTER component defaults to override display:none) */
+    @media (max-width: 768px) {
+      .mobile-drawer { display: flex; }
+      .mobile-cta-bar { display: grid; }
     }
   </style>
 </head>
@@ -1105,9 +1270,45 @@
         <a href="#schedule" class="btn-gold">Schedule A Call</a>
         <a href="#inquiry" class="btn-outline-gold">Request Info</a>
       </div>
-      <button class="nav__toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileDrawer"><span></span><span></span><span></span></button>
     </div>
   </nav>
+
+  <!-- MOBILE DRAWER -->
+  <aside class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <ul class="mobile-drawer__links">
+      <li><a href="#experience" data-drawer-link>The Society</a></li>
+      <li><a href="#benefits" data-drawer-link>Benefits</a></li>
+      <li><a href="#dining" data-drawer-link>Dining</a></li>
+      <li><a href="#schedule" data-drawer-link>Book A Call</a></li>
+      <li><a href="#faq" data-drawer-link>FAQ</a></li>
+    </ul>
+    <div class="mobile-drawer__actions">
+      <a href="#schedule" class="btn-gold" data-drawer-link>Schedule A Call</a>
+      <a href="#inquiry" class="btn-outline-gold" data-drawer-link>Request Information</a>
+    </div>
+    <p class="mobile-drawer__footer">Only 62 Memberships &mdash; Vail Village</p>
+  </aside>
+
+  <!-- MOBILE FLOATING CTAs -->
+  <div class="mobile-cta-bar" id="mobileCtaBar" aria-label="Quick actions">
+    <a href="#inquiry" class="mobile-cta-bar__btn mobile-cta-bar__btn--secondary" aria-label="Request membership information">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      <span>Request Info</span>
+    </a>
+    <a href="#schedule" class="mobile-cta-bar__btn mobile-cta-bar__btn--primary" aria-label="Schedule a private call">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <span>Schedule A Call</span>
+    </a>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -1125,7 +1326,7 @@
     <div class="container">
       <p class="intro__eyebrow reveal">Exclusive Opportunity</p>
       <h2 class="intro__heading reveal reveal-d1">THE SIXTY TWO&trade; <em>Society</em> is located at the premier location in Vail Village, at the base of Vail Mountain just steps from Gondola One.</h2>
-      <p class="intro__sub reveal reveal-d2">The Society is tailored for those who appreciate the finer things in life and seek an unparalleled level of personalized service.</p>
+      <p class="intro__sub reveal reveal-d2">THE SIXTY TWO&trade; <em>Society</em> is designed for those who appreciate a more refined, personal way to experience Vail. What sets it apart is its independence, limited membership, and commitment to a seamless experience.</p>
     </div>
   </section>
 
@@ -1759,8 +1960,53 @@
           if (fields) fields.style.display = 'none';
           if (success) success.classList.add('show');
           success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Hide mobile floating CTA bar — they've already converted
+          document.body.classList.add('form-submitted');
         });
       }
+
+      // ===== MOBILE DRAWER =====
+      var navToggle = document.querySelector('.nav__toggle');
+      var drawer = document.getElementById('mobileDrawer');
+      if (navToggle && drawer) {
+        function openDrawer() {
+          drawer.classList.add('is-open');
+          drawer.setAttribute('aria-hidden', 'false');
+          navToggle.classList.add('is-active');
+          navToggle.setAttribute('aria-expanded', 'true');
+          document.body.classList.add('drawer-open');
+        }
+        function closeDrawer() {
+          drawer.classList.remove('is-open');
+          drawer.setAttribute('aria-hidden', 'true');
+          navToggle.classList.remove('is-active');
+          navToggle.setAttribute('aria-expanded', 'false');
+          document.body.classList.remove('drawer-open');
+        }
+        navToggle.addEventListener('click', function () {
+          if (drawer.classList.contains('is-open')) closeDrawer();
+          else openDrawer();
+        });
+        // Close on any link click inside drawer (so anchor scroll happens)
+        drawer.querySelectorAll('[data-drawer-link]').forEach(function (a) {
+          a.addEventListener('click', closeDrawer);
+        });
+        // Close on Escape
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && drawer.classList.contains('is-open')) closeDrawer();
+        });
+      }
+
+      // ===== MOBILE CTA BAR — track clicks =====
+      document.querySelectorAll('.mobile-cta-bar a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          gtag('event', 'cta_click', {
+            cta_label: a.textContent.trim(),
+            cta_location: 'mobile-floating-bar',
+            cta_href: a.getAttribute('href') || ''
+          });
+        });
+      });
 
       // 5. Video play events
       document.querySelectorAll('video').forEach(function (v) {
