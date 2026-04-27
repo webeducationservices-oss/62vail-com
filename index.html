@@ -1061,6 +1061,13 @@
       .footer__top { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
+      /* Hide top announcement bar and tighten nav around logo */
+      .top-bar { display: none; }
+      .nav { padding: 5px 0; }
+      .nav.scrolled { padding: 5px 0; }
+      .nav__logo img { height: 70px; }
+      .nav.scrolled .nav__logo img { height: 50px; }
+
       .nav__links, .nav__left { display: none; }
       .nav__right { display: none; } /* moved into drawer on mobile */
       .nav__toggle { display: flex; z-index: 110; position: relative; }
@@ -1164,14 +1171,35 @@
 
     /* Lock body scroll when drawer open */
     body.drawer-open { overflow: hidden; }
-    /* Float the toggle above the drawer so the X is clickable + visible */
+    /* Float the toggle above the drawer so the X is clickable + visible.
+       Make it a clear circular button with gold border + larger bars. */
     body.drawer-open .nav__toggle {
       position: fixed;
-      top: 1.5rem;
-      right: 1.5rem;
-      z-index: 200;
+      top: 1rem;
+      right: 1rem;
+      z-index: 999;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      gap: 0;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
     }
-    body.drawer-open .nav__toggle span { background: var(--white) !important; }
+    body.drawer-open .nav__toggle span {
+      position: absolute;
+      width: 22px !important;
+      height: 2px !important;
+      background: var(--white) !important;
+      border-radius: 2px;
+    }
+    /* Re-tune the X transforms to center on the new button size */
+    body.drawer-open .nav__toggle.is-active span:nth-child(1) { transform: rotate(45deg); }
+    body.drawer-open .nav__toggle.is-active span:nth-child(2) { opacity: 0; }
+    body.drawer-open .nav__toggle.is-active span:nth-child(3) { transform: rotate(-45deg); }
 
     /* ===== MOBILE CTA BAR (sticky bottom, icon-over-label) ===== */
     .mobile-cta-bar {
@@ -1287,7 +1315,6 @@
       <a href="#schedule" class="btn-gold" data-drawer-link>Schedule A Call</a>
       <a href="#inquiry" class="btn-outline-gold" data-drawer-link>Request Information</a>
     </div>
-    <p class="mobile-drawer__footer">Only 62 Memberships &mdash; Vail Village</p>
   </aside>
 
   <!-- MOBILE FLOATING CTAs -->
