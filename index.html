@@ -474,8 +474,14 @@
       .schedule__widget { margin-top: 2.5rem; }
     }
     .schedule__widget .calendly-inline-widget { min-width: 320px; height: 760px; width: 100%; }
+    /* Anchor target: leave clearance under the sticky nav */
+    #scheduleWidget { scroll-margin-top: 90px; }
+    #schedule { scroll-margin-top: 90px; }
     @media (max-width: 640px) {
-      .schedule__widget .calendly-inline-widget { height: 1080px; }
+      /* Taller on mobile so Calendly's stacked layout fits without internal scroll */
+      .schedule__widget .calendly-inline-widget { height: 1450px; }
+      #scheduleWidget { scroll-margin-top: 70px; }
+      #schedule { scroll-margin-top: 70px; }
     }
     /* Placeholder shown when consent has not been granted */
     .schedule__placeholder {
@@ -1326,7 +1332,7 @@
         <img src="images/Copy-of-sixty-two-gradient-4-in.pdf-640w.png" alt="THE SIXTY TWO Society Vail logo">
       </a>
       <div class="nav__right">
-        <a href="#schedule" class="btn-gold">Schedule A Call</a>
+        <a href="#scheduleWidget" class="btn-gold">Schedule A Call</a>
         <a href="#inquiry" class="btn-outline-gold">Request Info</a>
       </div>
       <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobileDrawer"><span></span><span></span><span></span></button>
@@ -1349,7 +1355,7 @@
       <li><a href="#faq" data-drawer-link>FAQ</a></li>
     </ul>
     <div class="mobile-drawer__actions">
-      <a href="#schedule" class="btn-gold" data-drawer-link>Schedule A Call</a>
+      <a href="#scheduleWidget" class="btn-gold" data-drawer-link>Schedule A Call</a>
       <a href="#inquiry" class="btn-outline-gold" data-drawer-link>Request Information</a>
     </div>
   </aside>
@@ -1363,7 +1369,7 @@
       </svg>
       <span>Request Info</span>
     </a>
-    <a href="#schedule" class="mobile-cta-bar__btn mobile-cta-bar__btn--primary" aria-label="Schedule a private call">
+    <a href="#scheduleWidget" class="mobile-cta-bar__btn mobile-cta-bar__btn--primary" aria-label="Schedule a private call">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
         <line x1="16" y1="2" x2="16" y2="6"/>
@@ -1604,7 +1610,7 @@
             </div>
             <h3 class="form-success__heading">Information Requested</h3>
             <p class="form-success__body">Thank you for your interest in THE SIXTY TWO&trade; <em>Society</em>. A member of our founding team will reach out personally within one business day.</p>
-            <p class="form-success__alt">Prefer to speak sooner? <a href="#schedule">Book a private call &rarr;</a></p>
+            <p class="form-success__alt">Prefer to speak sooner? <a href="#scheduleWidget">Book a private call &rarr;</a></p>
           </div>
         </form>
       </div>
@@ -1718,7 +1724,7 @@
             <div class="faq__answer">Locally owned, boutique hospitality experience with limited membership.</div>
           </details>
         </div>
-        <p class="faq__footer reveal">Still have questions? <a href="#schedule">Book a private call</a> or <a href="#inquiry">request exclusive information</a>.</p>
+        <p class="faq__footer reveal">Still have questions? <a href="#scheduleWidget">Book a private call</a> or <a href="#inquiry">request exclusive information</a>.</p>
       </div>
     </div>
   </section>
@@ -1754,7 +1760,7 @@
         <div>
           <h4 class="footer__col-title">Connect</h4>
           <ul class="footer__links">
-            <li><a href="#schedule">Schedule A Call</a></li>
+            <li><a href="#scheduleWidget">Schedule A Call</a></li>
             <li><a href="#inquiry">Request Info</a></li>
             <li><a href="https://www.thesixtytwovail.com/" target="_blank" rel="noopener">Visit Full Site</a></li>
             <li><a href="mailto:info@thesixtytwovail.com">Contact Us</a></li>
@@ -1939,7 +1945,7 @@
       instrumentCta('.nav__right .btn-gold', 'nav', 'Schedule A Call');
       instrumentCta('.nav__right .btn-outline-gold', 'nav', 'Request Info');
       instrumentCta('.hero__actions a', 'hero', 'Request Exclusive Information');
-      instrumentCta('.footer__links a[href="#schedule"]', 'footer', 'Schedule A Call');
+      instrumentCta('.footer__links a[href="#scheduleWidget"]', 'footer', 'Schedule A Call');
       instrumentCta('.footer__links a[href="#inquiry"]', 'footer', 'Request Info');
 
       // 2. Schedule section scrolled into view
