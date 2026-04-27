@@ -1168,9 +1168,10 @@
       .footer__top { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
-      .nav__links, .nav__left { display: none; }
+      .nav__links, .nav__left, .nav__right { display: none; }
       .nav__toggle { display: flex; }
       .nav__logo { position: relative; left: auto; transform: none; }
+      .floating-actions { display: flex; }
       .benefits__panel { grid-template-columns: 1fr; }
       .benefits__tabs { flex-wrap: wrap; }
       .video-section__grid { grid-template-columns: 1fr; }
@@ -1181,6 +1182,15 @@
     }
     @media (max-width: 480px) {
       .inquiry__row { grid-template-columns: 1fr; }
+      .floating-actions {
+        bottom: 1.5rem;
+        right: 1.5rem;
+      }
+      .floating-btn {
+        padding: 0.9rem 1.2rem;
+        font-size: 0.75rem;
+        min-width: 120px;
+      }
     }
   </style>
 </head>
