@@ -1755,6 +1755,48 @@
         wrap.classList.remove('playing');
       });
     });
+
+    // Sticky CTA visibility based on scroll position
+    const stickyCta = document.getElementById('stickyCta');
+    const heroSection = document.querySelector('.hero');
+    const scheduleSection = document.getElementById('schedule');
+    
+    if (stickyCta && heroSection && scheduleSection) {
+      const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          // Show sticky CTA when hero is out of view
+          if (!entry.isIntersecting) {
+            stickyCta.classList.add('show');
+          } else {
+            stickyCta.classList.remove('show');
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      const scheduleObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          // Hide sticky CTA when schedule section is in view
+          if (entry.isIntersecting) {
+            stickyCta.classList.remove('show');
+          }
+        });
+      }, { threshold: 0.3 });
+      
+      heroObserver.observe(heroSection);
+      scheduleObserver.observe(scheduleSection);
+    }
+
+    // Smooth scroll for CTA links
+    stickyCta?.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
   </script>
 
   <!-- ===== GDPR CONSENT BANNER ===== -->
