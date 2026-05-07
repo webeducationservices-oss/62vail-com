@@ -56,6 +56,15 @@ async function upsertHubspotContact(payload) {
   if (payload.form_type) properties.form_type = String(payload.form_type);
   properties.source_site = String(payload.site_slug || "62vail");
 
+  // Browser-side traffic-source attribution → standard HubSpot
+  // hs_analytics_* properties. Without these, contacts created via the
+  // Contacts API default to "Offline sources" in HubSpot's analytics.
+  if (payload.analytics_source) properties.hs_analytics_source = String(payload.analytics_source);
+  if (payload.analytics_source_data_1) properties.hs_analytics_source_data_1 = String(payload.analytics_source_data_1);
+  if (payload.analytics_source_data_2) properties.hs_analytics_source_data_2 = String(payload.analytics_source_data_2);
+  if (payload.first_referrer) properties.hs_analytics_first_referrer = String(payload.first_referrer);
+  if (payload.first_url) properties.hs_analytics_first_url = String(payload.first_url);
+
   // Try with all properties; if HubSpot rejects unknown custom properties
   // (form_type / source_site / message), strip them and retry once.
   // Lets the integration ship today AND auto-upgrade once the portal has
@@ -93,9 +102,13 @@ async function postUpsertOnce(token, email, properties) {
     const status = Math.abs(updated - created) < 2000 ? "created" : "updated";
     return { ok: true, id: r.id, status };
   }
+  // Strip names rejected as either PROPERTY_DOESNT_EXIST or READ_ONLY_VALUE.
+  // The latter covers HubSpot's portal-managed analytics fields like
+  // hs_analytics_source_data_1 / first_url that can only be written by
+  // HubSpot's own tracking script, not via API.
   const unknown = [];
   for (const e of data.errors || []) {
-    if (e.code === "PROPERTY_DOESNT_EXIST" && e.context && e.context.propertyName) {
+    if ((e.code === "PROPERTY_DOESNT_EXIST" || e.code === "READ_ONLY_VALUE") && e.context && e.context.propertyName) {
       for (const n of e.context.propertyName) unknown.push(n);
     }
   }
