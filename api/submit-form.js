@@ -56,29 +56,54 @@ async function upsertHubspotContact(payload) {
   if (payload.form_type) properties.form_type = String(payload.form_type);
   properties.source_site = String(payload.site_slug || "62vail");
 
+  // Try with all properties; if HubSpot rejects unknown custom properties
+  // (form_type / source_site / message), strip them and retry once.
+  // Lets the integration ship today AND auto-upgrade once the portal has
+  // those custom properties defined — no code change.
   try {
-    const res = await fetch(`${HUBSPOT_API}/crm/v3/objects/contacts/batch/upsert`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        inputs: [{ idProperty: "email", id: email, properties }],
-      }),
-    });
-    const data = await res.json();
-    if (res.ok && data.status === "COMPLETE" && data.results && data.results[0]) {
-      const r = data.results[0];
-      const created = new Date(r.createdAt).getTime();
-      const updated = new Date(r.updatedAt).getTime();
-      const status = Math.abs(updated - created) < 2000 ? "created" : "updated";
-      return { ok: true, id: r.id, status };
+    let attempt = await postUpsertOnce(token, email, properties);
+    if (!attempt.ok && attempt.unknownProps && attempt.unknownProps.length) {
+      const trimmed = Object.assign({}, properties);
+      for (const p of attempt.unknownProps) delete trimmed[p];
+      console.warn("[hubspot] Stripping unknown custom props and retrying:", attempt.unknownProps.join(", "));
+      attempt = await postUpsertOnce(token, email, trimmed);
     }
-    return { ok: false, reason: data.message || `HTTP ${res.status}` };
+    return attempt;
   } catch (err) {
     return { ok: false, reason: err.message || "fetch failed" };
   }
+}
+
+async function postUpsertOnce(token, email, properties) {
+  const res = await fetch(`${HUBSPOT_API}/crm/v3/objects/contacts/batch/upsert`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      inputs: [{ idProperty: "email", id: email, properties }],
+    }),
+  });
+  const data = await res.json();
+  if (res.ok && data.status === "COMPLETE" && data.results && data.results[0]) {
+    const r = data.results[0];
+    const created = new Date(r.createdAt).getTime();
+    const updated = new Date(r.updatedAt).getTime();
+    const status = Math.abs(updated - created) < 2000 ? "created" : "updated";
+    return { ok: true, id: r.id, status };
+  }
+  const unknown = [];
+  for (const e of data.errors || []) {
+    if (e.code === "PROPERTY_DOESNT_EXIST" && e.context && e.context.propertyName) {
+      for (const n of e.context.propertyName) unknown.push(n);
+    }
+  }
+  return {
+    ok: false,
+    reason: data.message || `HTTP ${res.status}`,
+    unknownProps: unknown.length ? unknown : undefined,
+  };
 }
 
 module.exports = async function handler(req, res) {
