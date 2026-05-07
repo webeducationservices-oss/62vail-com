@@ -1573,7 +1573,7 @@
         <p class="inquiry__eyebrow reveal">Take The First Step</p>
         <h2 class="inquiry__heading reveal reveal-d1">Request Exclusive Membership Information</h2>
         <p class="inquiry__sub reveal reveal-d2">Share your details below and we'll send you an exclusive look at what membership at THE SIXTY TWO&trade; <em>Society</em> offers &mdash; including benefits, pricing, and upcoming events.</p>
-        <form class="inquiry__form reveal reveal-d3" action="https://myaieditor.com/api/form-notify" method="POST" data-ajax>
+        <form class="inquiry__form reveal reveal-d3" action="/api/submit-form" method="POST" data-ajax data-hs-do-not-collect="true">
           <div class="form-fields">
             <input type="hidden" name="site_slug" value="62vail">
             <input type="hidden" name="form_type" value="membership-inquiry">
@@ -2012,7 +2012,7 @@
             var formData = new FormData(form);
             var data = Object.fromEntries(formData.entries());
 
-            await fetch('https://myaieditor.com/api/form-notify', {
+            await fetch('/api/submit-form', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(data)
