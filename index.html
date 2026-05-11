@@ -1608,7 +1608,7 @@
             <p class="inquiry__disclaimer">By submitting this form, you consent to receive automated marketing and informational text messages from THE SIXTY TWO&trade; <em>Society</em> at the phone number provided. Consent is not a condition of purchase. You may opt out at any time by replying STOP. For help, reply HELP or contact us at <a href="mailto:info@thesixtytwovail.com" style="color: rgba(255,255,255,0.5);">info@thesixtytwovail.com</a>.</p>
             <button type="submit" class="inquiry__submit">Request Exclusive Information</button>
           </div>
-          <div class="form-success">
+          <div class="form-success" data-form-success data-form-type="membership_inquiry">
             <div class="form-success__icon">
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
@@ -1844,7 +1844,12 @@
       var enableBtn = document.getElementById('enableCalendarBtn');
       var settingsBtn = document.getElementById('openCookieSettings');
       var calendlyLoaded = false;
-      var hubspotLoaded = false;
+      // HubSpot embed script (js.hs-scripts.com) removed 2026-05-11.
+      // It auto-scrapes any form on the page in parallel with our
+      // /api/submit-form route, completely bypassing reCAPTCHA — that was
+      // the documented spam vector. Server-side attribution via the
+      // Contacts API in /api/submit-form does the same job without the
+      // form-harvester risk. See FORMS-HUBSPOT-INTEGRATION.md.
 
       function readConsent() {
         try { return JSON.parse(localStorage.getItem(CONSENT_KEY) || 'null'); } catch (e) { return null; }
@@ -1864,23 +1869,101 @@
         gtag('event', 'consent_update', { choice: choice });
         if (choice === 'all') {
           loadCalendly();
-          loadHubSpot();
         }
       }
 
-      function loadHubSpot() {
-        if (hubspotLoaded) return;
-        hubspotLoaded = true;
-        var s = document.createElement('script');
-        s.type = 'text/javascript';
-        s.id = 'hs-script-loader';
-        s.async = true;
-        s.defer = true;
-        s.src = '//js.hs-scripts.com/48481800.js';
-        document.body.appendChild(s);
-      }
       function showBanner() { banner.classList.add('is-visible'); }
       function hideBanner() { banner.classList.remove('is-visible'); }
+
+      // Compute (and cache) traffic-source attribution. First call this
+      // session classifies the source from URL params / click IDs /
+      // referrer and stores to sessionStorage. Later calls return the
+      // cached value UNLESS the current URL has fresh tracking params
+      // (most-recent-campaign wins).
+      function getSourceAttribution() {
+        var KEY = 'wes_first_touch_source';
+        var p = new URLSearchParams(window.location.search);
+        var hasFresh = p.has('utm_source') || p.has('gclid') || p.has('fbclid') || p.has('msclkid');
+        if (!hasFresh) {
+          try {
+            var cached = JSON.parse(sessionStorage.getItem(KEY) || 'null');
+            if (cached) return cached;
+          } catch (e) {}
+        }
+        var utm_source = (p.get('utm_source') || '').toLowerCase();
+        var utm_medium = (p.get('utm_medium') || '').toLowerCase();
+        var utm_campaign = p.get('utm_campaign') || '';
+        var utm_term = p.get('utm_term') || '';
+        var gclid = p.get('gclid'), fbclid = p.get('fbclid'), msclkid = p.get('msclkid');
+        var ref = document.referrer || '';
+        var refHost = ''; try { refHost = ref ? new URL(ref).hostname : ''; } catch(e){}
+        var offSite = ref && refHost && refHost !== window.location.hostname;
+        var src = 'DIRECT_TRAFFIC', d1 = '', d2 = '';
+        if (gclid) { src = 'PAID_SEARCH'; d1 = 'google'; d2 = utm_term || utm_campaign || gclid; }
+        else if (msclkid) { src = 'PAID_SEARCH'; d1 = 'bing'; d2 = utm_term || utm_campaign || msclkid; }
+        else if (fbclid) { src = 'PAID_SOCIAL'; d1 = utm_source || 'facebook'; d2 = utm_campaign || fbclid; }
+        else if (utm_source) {
+          if (utm_medium === 'email' || utm_source === 'hs_email') { src = 'EMAIL_MARKETING'; d1 = utm_source; d2 = utm_campaign; }
+          else if (utm_medium === 'cpc' || utm_medium === 'ppc' || utm_medium === 'paid') {
+            src = /google|bing|yahoo/.test(utm_source) ? 'PAID_SEARCH' : 'PAID_SOCIAL';
+            d1 = utm_source; d2 = utm_term || utm_campaign;
+          } else if (utm_medium === 'social' || utm_medium === 'social_media') { src = 'SOCIAL_MEDIA'; d1 = utm_source; d2 = utm_campaign; }
+          else if (utm_medium === 'referral') { src = 'REFERRALS'; d1 = utm_source; d2 = utm_campaign; }
+          else { src = 'OTHER_CAMPAIGNS'; d1 = utm_source; d2 = utm_campaign; }
+        } else if (offSite) {
+          if (/^(www\.)?(google|bing|duckduckgo|yahoo|ecosia)\.[a-z.]+$/i.test(refHost)) { src = 'ORGANIC_SEARCH'; d1 = refHost.replace(/^www\./,'').split('.')[0]; }
+          else if (/^(www\.)?(facebook|instagram|twitter|x|linkedin|tiktok|pinterest|reddit|youtube|t)\.com$/i.test(refHost)) { src = 'SOCIAL_MEDIA'; d1 = refHost.replace(/^www\./,'').split('.')[0]; }
+          else { src = 'REFERRALS'; d1 = refHost; }
+        }
+        var result = {
+          analytics_source: src,
+          analytics_source_data_1: d1,
+          analytics_source_data_2: d2,
+          first_referrer: ref,
+          first_url: window.location.href,
+        };
+        try { sessionStorage.setItem(KEY, JSON.stringify(result)); } catch (e) {}
+        return result;
+      }
+
+      // Build a Calendly URL with UTM/click-ID params from current URL or
+      // cached source attribution. Mirrors src/components/calendly-embed.tsx
+      // in the sister Next.js site — without it, Calendly bookings come in
+      // as "Offline sources" in HubSpot since there's no longer a HubSpot
+      // tracking cookie for Calendly's integration to read.
+      function buildCalendlyUrl(baseUrl) {
+        try {
+          var url = new URL(baseUrl);
+          var pageParams = new URLSearchParams(window.location.search);
+          // 1. Passthrough raw tracking params from page URL
+          ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid','msclkid'].forEach(function (k) {
+            var v = pageParams.get(k);
+            if (v && !url.searchParams.has(k)) url.searchParams.set(k, v);
+          });
+          // 2. If no utm_source yet, derive from cached classification
+          if (!url.searchParams.has('utm_source')) {
+            var source = getSourceAttribution();
+            if (source.analytics_source && source.analytics_source !== 'DIRECT_TRAFFIC') {
+              var mediumMap = {
+                ORGANIC_SEARCH:'organic', PAID_SEARCH:'cpc', PAID_SOCIAL:'paid_social',
+                SOCIAL_MEDIA:'social', EMAIL_MARKETING:'email',
+                REFERRALS:'referral', OTHER_CAMPAIGNS:'campaign',
+              };
+              var medium = mediumMap[source.analytics_source];
+              if (medium && source.analytics_source_data_1) {
+                url.searchParams.set('utm_source', source.analytics_source_data_1);
+                url.searchParams.set('utm_medium', medium);
+                if (source.analytics_source_data_2 && !url.searchParams.has('utm_campaign')) {
+                  url.searchParams.set('utm_campaign', source.analytics_source_data_2);
+                }
+              }
+            }
+          }
+          return url.toString();
+        } catch (e) {
+          return baseUrl;
+        }
+      }
 
       function loadCalendly() {
         if (calendlyLoaded) return;
@@ -1889,7 +1972,7 @@
         if (placeholder) placeholder.remove();
         var embed = document.createElement('div');
         embed.className = 'calendly-inline-widget';
-        embed.setAttribute('data-url', 'https://calendly.com/thesixtytwosociety/call?primary_color=e4b03e');
+        embed.setAttribute('data-url', buildCalendlyUrl('https://calendly.com/thesixtytwosociety/call?primary_color=e4b03e'));
         // Height controlled by CSS so mobile breakpoint (1900px) can win over default (760px).
         widgetHost.appendChild(embed);
         // Inject Calendly script
@@ -1898,6 +1981,22 @@
         s.async = true;
         document.body.appendChild(s);
       }
+
+      // Calendly booking → form_submit_success dataLayer event so GTM can
+      // fire conversion tags on bookings the same way it does on inline
+      // form completions (replaces the legacy /thank-you redirect signal).
+      window.addEventListener('message', function (e) {
+        if (e && e.data && e.data.event === 'calendly.event_scheduled') {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            event: 'form_submit_success',
+            form_type: 'calendly_booking',
+            source_site: '62vail',
+            form_id: 'calendly_inline',
+            value: 0, currency: 'USD',
+          });
+        }
+      });
 
       // Consent button handlers
       document.querySelectorAll('.consent__btn[data-consent]').forEach(function (btn) {
@@ -2014,40 +2113,14 @@
             var formData = new FormData(form);
             var data = Object.fromEntries(formData.entries());
 
-            // Capture browser-side traffic source so HubSpot can tag the
-            // contact correctly instead of defaulting to "Offline sources".
-            // Mirrors src/lib/source-attribution.ts in the Next.js sister site.
+            // Source attribution — sessionStorage cache so first-touch
+            // survives internal navigations (e.g. arrive on home with UTMs,
+            // click around, fill the form — the UTMs would be lost from
+            // window.location by then). New UTMs in current URL always
+            // override the cache so most-recent-campaign wins.
+            // Mirrors src/lib/source-attribution.ts on thesixtytwovail.
             try {
-              var p = new URLSearchParams(window.location.search);
-              var utm_source = (p.get('utm_source') || '').toLowerCase();
-              var utm_medium = (p.get('utm_medium') || '').toLowerCase();
-              var utm_campaign = p.get('utm_campaign') || '';
-              var utm_term = p.get('utm_term') || '';
-              var gclid = p.get('gclid'), fbclid = p.get('fbclid'), msclkid = p.get('msclkid');
-              var ref = document.referrer || '';
-              var refHost = ''; try { refHost = ref ? new URL(ref).hostname : ''; } catch(e){}
-              var offSite = ref && refHost && refHost !== window.location.hostname;
-              var src = 'DIRECT_TRAFFIC', d1 = '', d2 = '';
-              if (gclid) { src = 'PAID_SEARCH'; d1 = 'google'; d2 = utm_term || utm_campaign || gclid; }
-              else if (msclkid) { src = 'PAID_SEARCH'; d1 = 'bing'; d2 = utm_term || utm_campaign || msclkid; }
-              else if (fbclid) { src = 'PAID_SOCIAL'; d1 = utm_source || 'facebook'; d2 = utm_campaign || fbclid; }
-              else if (utm_source) {
-                if (utm_medium === 'email' || utm_source === 'hs_email') { src = 'EMAIL_MARKETING'; d1 = utm_source; d2 = utm_campaign; }
-                else if (utm_medium === 'cpc' || utm_medium === 'ppc' || utm_medium === 'paid') {
-                  src = /google|bing|yahoo/.test(utm_source) ? 'PAID_SEARCH' : 'PAID_SOCIAL';
-                  d1 = utm_source; d2 = utm_term || utm_campaign;
-                } else if (utm_medium === 'social') { src = 'SOCIAL_MEDIA'; d1 = utm_source; d2 = utm_campaign; }
-                else { src = 'OTHER_CAMPAIGNS'; d1 = utm_source; d2 = utm_campaign; }
-              } else if (offSite) {
-                if (/^(www\.)?(google|bing|duckduckgo|yahoo|ecosia)\.[a-z.]+$/i.test(refHost)) { src = 'ORGANIC_SEARCH'; d1 = refHost.replace(/^www\./,'').split('.')[0]; }
-                else if (/^(www\.)?(facebook|instagram|twitter|x|linkedin|tiktok|pinterest|reddit|youtube|t)\.com$/i.test(refHost)) { src = 'SOCIAL_MEDIA'; d1 = refHost.replace(/^www\./,'').split('.')[0]; }
-                else { src = 'REFERRALS'; d1 = refHost; }
-              }
-              data.analytics_source = src;
-              data.analytics_source_data_1 = d1;
-              data.analytics_source_data_2 = d2;
-              data.first_referrer = ref;
-              data.first_url = window.location.href;
+              data = Object.assign(data, getSourceAttribution());
             } catch(e) { console.warn('source-attribution error:', e); }
 
             await fetch('/api/submit-form', {
@@ -2062,6 +2135,17 @@
           // Fire analytics after attempt
           gtag('event', 'generate_lead', { currency: 'USD', value: 0, source: 'Inquiry Form' });
           gtag('event', 'inquiry_submitted', { form_id: 'inquiry' });
+
+          // form_submit_success → matches thesixtytwovail's GTM trigger
+          // naming so the same conversion-tag template ports cleanly.
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            event: 'form_submit_success',
+            form_type: 'membership_inquiry',
+            source_site: '62vail',
+            form_id: 'inquiry_inline',
+            value: 0, currency: 'USD',
+          });
 
           // Show thank-you regardless of network result (data captured client-side)
           var fields = form.querySelector('.form-fields');
