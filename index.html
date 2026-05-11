@@ -2072,6 +2072,11 @@
           gtag('event', 'calendly_date_selected', { module: 'Calendly' });
         }
         if (e.data.event === 'calendly.event_scheduled') {
+          // `calendly_scheduled` is the GA4 event the Google Ads
+          // "Book appointment" conversion action listens for. Fired
+          // FIRST so even if a downstream tag errors, the conversion
+          // event still makes it out.
+          gtag('event', 'calendly_scheduled', { source_site: '62vail', value: 0, currency: 'USD' });
           gtag('event', 'generate_lead', { currency: 'USD', value: 0, source: 'Calendly' });
           gtag('event', 'calendly_booking_completed', { booking_type: 'Sixty Two Booking', module: 'Calendly' });
         }
