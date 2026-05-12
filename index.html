@@ -212,6 +212,119 @@
       display: inline-block;
     }
 
+    /* ===== HERO MINI-FORM (2-field capture above the fold) ===== */
+    /* Glass card style — matches the same pattern on thesixtytwovail's
+       hero so the two sites feel like one experience. */
+    .hero__form {
+      max-width: 600px;
+      margin: 1rem auto 0;
+    }
+    .hero__form-card {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(228,176,62,0.30);
+      border-radius: 12px;
+      padding: 1.25rem;
+      box-shadow: 0 18px 60px -20px rgba(0,0,0,0.55);
+    }
+    @media (min-width: 480px) {
+      .hero__form-card { padding: 1.5rem; }
+    }
+    .hero__form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      text-align: left;
+    }
+    @media (min-width: 600px) {
+      .hero__form-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .hero__form-input {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      color: var(--white);
+      font-size: 0.98rem;
+      font-family: inherit;
+      transition: border-color 160ms ease, background-color 160ms ease;
+    }
+    .hero__form-input::placeholder { color: rgba(255,255,255,0.40); }
+    .hero__form-input:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: rgba(255,255,255,0.10);
+    }
+    .hero__form-submit {
+      width: 100%;
+      padding: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.075em;
+      cursor: pointer;
+    }
+    .hero__form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .hero__form-error {
+      color: #fca5a5;
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+      text-align: center;
+    }
+    .hero__form-tagline {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(228,176,62,0.70);
+      text-align: center;
+      margin-top: 1rem;
+    }
+    /* Inline thank-you state — swapped in after a successful submission. */
+    .hero__form-success {
+      display: none;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(228,176,62,0.30);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      animation: heroSuccessIn 420ms cubic-bezier(.16,.84,.32,1);
+    }
+    .hero__form-success.show { display: block; }
+    .hero__form-success-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(228,176,62,0.15);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    .hero__form-success-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .hero__form-success-body {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+    @keyframes heroSuccessIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     /* ===== INQUIRY FORM SECTION ===== */
     .inquiry {
       background: var(--navy);
@@ -1389,9 +1502,42 @@
     <div class="hero__content">
       <h1 class="hero__title reveal">Elevate Your Alpine Club Experience In Vail</h1>
       <p class="hero__sub reveal reveal-d2">At only sixty-two memberships, this independently owned, boutique club and full service restaurant embodies a new standard of mountain access, culinary mastery, and meaningful connection, just steps from Gondola One.</p>
-      <div class="hero__actions reveal reveal-d3">
-        <a href="#inquiry" class="btn-gold">Request Exclusive Information</a>
-      </div>
+
+      <!-- Hero 2-field capture form — visitors who scroll past it still
+           hit the full inquiry form below the fold. Both submit to the
+           same /api/submit-form pipeline (form-notify → email + Sheet +
+           HubSpot upsert). -->
+      <form class="hero__form reveal reveal-d3" id="heroMiniForm" data-hs-do-not-collect="true">
+        <!-- Honeypot — visually offscreen, real users won't fill -->
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <input type="hidden" name="recaptcha_token" id="heroRecaptchaToken">
+
+        <div class="hero__form-card" id="heroFormCard">
+          <div class="hero__form-grid">
+            <div>
+              <label for="heroFullName" class="sr-only">Full Name</label>
+              <input id="heroFullName" name="full_name" type="text" required placeholder="Full Name" autocomplete="name" class="hero__form-input">
+            </div>
+            <div>
+              <label for="heroEmail" class="sr-only">Email Address</label>
+              <input id="heroEmail" name="email" type="email" required placeholder="Email Address" autocomplete="email" class="hero__form-input">
+            </div>
+          </div>
+          <button type="submit" class="btn-gold hero__form-submit" id="heroFormSubmit">Request Exclusive Information</button>
+          <p class="hero__form-error" id="heroFormError" style="display:none"></p>
+        </div>
+
+        <!-- Inline thank-you (swapped in after successful submit) -->
+        <div class="hero__form-success" id="heroFormSuccess">
+          <div class="hero__form-success-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3 class="hero__form-success-heading">Thank You</h3>
+          <p class="hero__form-success-body">A member of our founding team will reach out personally within one business day.</p>
+        </div>
+
+        <p class="hero__form-tagline">Limited to 62 Memberships</p>
+      </form>
     </div>
   </section>
 
@@ -2160,6 +2306,91 @@
           success.scrollIntoView({ behavior: 'smooth', block: 'center' });
           // Hide mobile floating CTA bar — they've already converted
           document.body.classList.add('form-submitted');
+        });
+      }
+
+      // ── Hero mini-form (2-field above-the-fold capture) ─────────────
+      // Same pipeline as the inquiry form: honeypot + reCAPTCHA token +
+      // source attribution → /api/submit-form. On success swaps the
+      // form card for the inline thank-you state inside the hero card.
+      var heroForm = document.getElementById('heroMiniForm');
+      if (heroForm) {
+        heroForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          var honey = heroForm.querySelector('[name="_honey"]');
+          if (honey && honey.value) return; // bot tripped the honeypot
+
+          var btn = document.getElementById('heroFormSubmit');
+          var card = document.getElementById('heroFormCard');
+          var successEl = document.getElementById('heroFormSuccess');
+          var errorEl = document.getElementById('heroFormError');
+          var originalText = btn.textContent;
+          btn.disabled = true;
+          btn.textContent = 'Submitting...';
+          if (errorEl) errorEl.style.display = 'none';
+
+          try {
+            // reCAPTCHA v3 token (best-effort — don't block on failure)
+            try {
+              if (typeof grecaptcha !== 'undefined' && grecaptcha.execute) {
+                var token = await grecaptcha.execute('6Lck8aQsAAAAALMA-T6nwfkSf7bv4K-mOhkszeKh', { action: 'membership_inquiry' });
+                var tokenField = document.getElementById('heroRecaptchaToken');
+                if (tokenField) tokenField.value = token;
+              }
+            } catch (captchaErr) { console.warn('hero reCAPTCHA error:', captchaErr); }
+
+            // Split "Full Name" → first_name / last_name (HubSpot needs
+            // the two standard contact props populated separately).
+            var fullName = (heroForm.querySelector('[name="full_name"]').value || '').trim();
+            var firstSpace = fullName.indexOf(' ');
+            var first_name = firstSpace === -1 ? fullName : fullName.slice(0, firstSpace);
+            var last_name  = firstSpace === -1 ? '' : fullName.slice(firstSpace + 1).trim();
+
+            var payload = {
+              site_slug: '62vail',
+              form_type: 'membership_inquiry',
+              first_name: first_name,
+              last_name: last_name,
+              email: heroForm.querySelector('[name="email"]').value,
+              _honey: honey ? honey.value : '',
+              recaptcha_token: document.getElementById('heroRecaptchaToken').value || '',
+            };
+            try { Object.assign(payload, getSourceAttribution()); } catch (e) { console.warn('hero source-attr error:', e); }
+
+            await fetch('/api/submit-form', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+            });
+          } catch (err) {
+            console.error('Hero form submit error:', err);
+            // Soft-fail to thank-you anyway — data is captured client-side;
+            // we don't want to block conversion on a transient network blip.
+          }
+
+          // Mirror the inquiry form analytics signals so GA4 / Google Ads
+          // see hero submissions the same as below-fold submissions.
+          gtag('event', 'generate_lead', { currency: 'USD', value: 0, source: 'Hero Mini Form' });
+          gtag('event', 'inquiry_submitted', { form_id: 'hero_mini' });
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            event: 'form_submit_success',
+            form_type: 'membership_inquiry',
+            source_site: '62vail',
+            form_id: 'homepage_hero_mini',
+            value: 0, currency: 'USD',
+          });
+
+          // Swap card → inline thank-you (no scroll — they're already
+          // viewing the hero so the success state appears in place).
+          if (card) card.style.display = 'none';
+          if (successEl) successEl.classList.add('show');
+          // Hide mobile floating CTA — visitor has converted
+          document.body.classList.add('form-submitted');
+
+          // Reset button state in case the swap didn't happen
+          btn.disabled = false;
+          btn.textContent = originalText;
         });
       }
 
