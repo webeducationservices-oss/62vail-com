@@ -390,12 +390,18 @@
     .inquiry__field { margin-bottom: 1rem; }
     .inquiry__field:last-of-type { margin-bottom: 0; }
     .inquiry__label {
-      display: block;
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 0.4rem;
-      letter-spacing: 0.02em;
+      /* Visually hidden but readable by screen readers — the input
+         placeholder carries the visible field hint, so the label
+         shouldn't double-render above the field. */
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
     }
     .inquiry__input {
       width: 100%;
