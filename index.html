@@ -212,6 +212,21 @@
       display: inline-block;
     }
 
+    /* Accessibility — visually hidden but readable by screen readers.
+       Used on form labels where the placeholder already carries the
+       visible field hint, so we don't double-render text. */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     /* ===== HERO MINI-FORM (2-field capture above the fold) ===== */
     /* Glass card style — matches the same pattern on thesixtytwovail's
        hero so the two sites feel like one experience. */
