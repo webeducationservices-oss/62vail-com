@@ -173,6 +173,14 @@ async function upsertHubspotContact(payload) {
   const properties = {
     email,
     lifecyclestage: "lead",
+    // Mark as Marketing Contact + record explicit Opt_In. Both take the
+    // literal string "true" — HubSpot's enumerations don't accept booleans.
+    // hs_marketable_status is marked readOnlyValue=true in the schema, so
+    // the Properties API blocks direct edits; the Contacts upsert path has
+    // special handling. If it still gets rejected, the retry-on-readonly
+    // logic below strips it and the contact lands with opt_in alone.
+    hs_marketable_status: "true",
+    opt_in: "true",
   };
   if (payload.first_name) properties.firstname = String(payload.first_name);
   if (payload.last_name) properties.lastname = String(payload.last_name);
