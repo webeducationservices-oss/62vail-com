@@ -18,32 +18,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- ===== Google Consent Mode v2 (denied-first, GDPR-safe). Must run BEFORE GTM. ===== -->
+  <!-- ===== Google Consent Mode v2 — granted by default (no banner). Must run BEFORE GTM. ===== -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('consent', 'default', {
-      'ad_storage': 'denied',
-      'ad_user_data': 'denied',
-      'ad_personalization': 'denied',
-      'analytics_storage': 'denied',
+      'ad_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'analytics_storage': 'granted',
       'functionality_storage': 'granted',
-      'security_storage': 'granted',
-      'wait_for_update': 500
+      'security_storage': 'granted'
     });
-    // Re-apply any previously stored consent before GTM fires tags.
-    try {
-      var saved = JSON.parse(localStorage.getItem('sixtytwo_consent_v1') || 'null');
-      if (saved && saved.choice) {
-        var g = saved.choice === 'all' ? 'granted' : 'denied';
-        gtag('consent', 'update', {
-          'ad_storage': g,
-          'ad_user_data': g,
-          'ad_personalization': g,
-          'analytics_storage': g
-        });
-      }
-    } catch (e) {}
   </script>
 
   <!-- reCAPTCHA v3 (invisible, score-based) -->
@@ -619,81 +605,6 @@
       #scheduleWidget { scroll-margin-top: 70px; }
       #schedule { scroll-margin-top: 70px; }
     }
-    /* Placeholder shown when consent has not been granted */
-    .schedule__placeholder {
-      min-height: 400px;
-      padding: 3rem 1.5rem;
-      text-align: center;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 1rem;
-      color: var(--navy);
-      background: var(--white);
-    }
-    .schedule__placeholder p { max-width: 480px; color: var(--gray-700); line-height: 1.7; }
-    .schedule__placeholder-btn {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em;
-      background: linear-gradient(135deg, #c89b2e 0%, #e4b03e 25%, #f5d574 50%, #e4b03e 75%, #c89b2e 100%);
-      background-size: 200% 200%;
-      color: var(--navy);
-      padding: 0.9rem 1.8rem;
-      border: none; border-radius: var(--r-sm); cursor: pointer;
-      transition: all 0.4s var(--ease);
-    }
-    .schedule__placeholder-btn:hover { background-position: 100% 100%; transform: translateY(-1px); box-shadow: 0 4px 18px rgba(228,176,62,0.35); }
-
-    /* ===== COOKIE CONSENT BANNER ===== */
-    .consent {
-      position: fixed; left: 1rem; right: 1rem; bottom: 1rem;
-      max-width: 780px; margin: 0 auto;
-      background: var(--navy);
-      color: var(--white);
-      border: 1px solid rgba(228,176,62,0.25);
-      border-radius: var(--r-md);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-      padding: 1.25rem 1.4rem;
-      z-index: 1000;
-      display: none;
-      font-size: 0.92rem; line-height: 1.6;
-    }
-    .consent.is-visible { display: block; animation: consentIn 0.4s var(--ease); }
-    @keyframes consentIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    .consent__body { display: grid; grid-template-columns: 1fr auto; gap: 1.25rem; align-items: center; }
-    .consent__text { color: var(--text-light); font-size: 0.9rem; }
-    .consent__text strong { color: var(--white); font-weight: 600; }
-    .consent__text a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
-    .consent__actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .consent__btn {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em;
-      padding: 0.7rem 1.2rem;
-      border-radius: var(--r-sm);
-      border: 1px solid rgba(228,176,62,0.4);
-      background: transparent; color: var(--white);
-      cursor: pointer; transition: all 0.3s var(--ease);
-      white-space: nowrap;
-    }
-    .consent__btn:hover { border-color: var(--gold); background: rgba(228,176,62,0.08); }
-    .consent__btn--primary {
-      background: linear-gradient(135deg, #c89b2e 0%, #e4b03e 25%, #f5d574 50%, #e4b03e 75%, #c89b2e 100%);
-      background-size: 200% 200%;
-      color: var(--navy); border: none;
-    }
-    .consent__btn--primary:hover { background-position: 100% 100%; }
-    @media (max-width: 640px) {
-      .consent__body { grid-template-columns: 1fr; }
-      .consent__actions { justify-content: stretch; }
-      .consent__btn { flex: 1 1 auto; }
-    }
-
-    /* Footer cookie link */
-    .footer__cookie-link {
-      background: none; border: none; cursor: pointer;
-      color: inherit; font: inherit; padding: 0;
-      text-decoration: underline; text-underline-offset: 3px;
-    }
-
     /* ===== FAQ ===== */
     .faq {
       background: var(--cream);
@@ -1718,13 +1629,8 @@
           <p class="schedule__signal reveal reveal-d3">Typical response within 24 hours</p>
         </div>
         <div class="schedule__widget reveal reveal-d3" id="scheduleWidget">
-          <!-- Placeholder shown until analytics/marketing cookies are accepted -->
-          <div class="schedule__placeholder" id="schedulePlaceholder">
-            <p><strong>Calendar powered by Calendly</strong><br>To book a call without leaving this page, please accept cookies. Calendly sets its own cookies to manage your booking.</p>
-            <button type="button" class="schedule__placeholder-btn" id="enableCalendarBtn">Accept &amp; Load Calendar</button>
-            <p style="font-size:0.82rem;opacity:0.7;">Prefer not to accept? <a href="https://www.thesixtytwovail.com/schedule-a-call-calendar" target="_blank" rel="noopener" style="color:var(--navy);text-decoration:underline;">Open booking page in a new tab</a>.</p>
-          </div>
-          <!-- Calendly embed is injected here by JS once consent is granted -->
+          <!-- Calendly inline widget — loads immediately -->
+          <div class="calendly-inline-widget" data-url="https://calendly.com/thesixtytwosociety/call?primary_color=e4b03e"></div>
         </div>
       </div>
     </div>
@@ -1943,7 +1849,7 @@
         <div class="footer__legal">
           <a href="https://www.thesixtytwovail.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
           <a href="https://www.thesixtytwovail.com/terms-of-use" target="_blank" rel="noopener">Terms of Use</a>
-          <button type="button" class="footer__cookie-link" id="openCookieSettings">Cookie Settings</button>
+
         </div>
       </div>
     </div>
@@ -1987,35 +1893,13 @@
     });
   </script>
 
-  <!-- ===== GDPR CONSENT BANNER ===== -->
-  <aside class="consent" id="consentBanner" role="dialog" aria-labelledby="consentText" aria-describedby="consentText">
-    <div class="consent__body">
-      <p class="consent__text" id="consentText">
-        <strong>We use cookies to elevate your experience.</strong><br>
-        We use essential cookies for site functionality and, with your permission, analytics (Google Analytics), booking (Calendly), and CRM (HubSpot) cookies to improve this site, enable the inline calendar, and keep your contact preferences in sync. You can change your choice anytime via &ldquo;Cookie Settings&rdquo; in the footer. See our <a href="https://www.thesixtytwovail.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>.
-      </p>
-      <div class="consent__actions">
-        <button type="button" class="consent__btn" data-consent="essential">Reject Non-Essential</button>
-        <button type="button" class="consent__btn consent__btn--primary" data-consent="all">Accept All</button>
-      </div>
-    </div>
-  </aside>
-
-  <!-- ===== CONSENT + ANALYTICS EVENTS ===== -->
+  <!-- ===== ANALYTICS EVENTS ===== -->
   <script>
     (function () {
-      var CONSENT_KEY = 'sixtytwo_consent_v1';
-      var banner = document.getElementById('consentBanner');
-      var placeholder = document.getElementById('schedulePlaceholder');
       var widgetHost = document.getElementById('scheduleWidget');
-      var enableBtn = document.getElementById('enableCalendarBtn');
-      var settingsBtn = document.getElementById('openCookieSettings');
-      var calendlyLoaded = false;
-      var hubspotLoaded = false;
 
-      // HubSpot tracker: loads after the visitor consents (cookie-gated
-      // like Calendly above). Sets __hstc / hubspotutk cookies so
-      // prospect page-view paths show up in HubSpot. Form scraping is
+      // HubSpot tracker — loads immediately. Sets __hstc / hubspotutk cookies
+      // so prospect page-view paths show up in HubSpot. Form scraping is
       // blocked three ways:
       //   1) data-hs-do-not-collect="true" on every <form>
       //   2) HubSpot Settings → Marketing → Forms → "Collect data from
@@ -2023,8 +1907,7 @@
       //   3) Even if the scraper somehow caught a submit, form-notify's
       //      `accepted` flag means spam can't bypass reCAPTCHA + honeypot
       function loadHubSpot() {
-        if (hubspotLoaded) return;
-        hubspotLoaded = true;
+        if (document.getElementById('hs-script-loader')) return;
         var s = document.createElement('script');
         s.type = 'text/javascript';
         s.id = 'hs-script-loader';
@@ -2033,31 +1916,6 @@
         s.src = '//js.hs-scripts.com/48481800.js';
         document.body.appendChild(s);
       }
-
-      function readConsent() {
-        try { return JSON.parse(localStorage.getItem(CONSENT_KEY) || 'null'); } catch (e) { return null; }
-      }
-      function saveConsent(choice) {
-        var payload = { choice: choice, at: new Date().toISOString(), v: 1 };
-        try { localStorage.setItem(CONSENT_KEY, JSON.stringify(payload)); } catch (e) {}
-      }
-      function applyConsent(choice) {
-        var g = choice === 'all' ? 'granted' : 'denied';
-        gtag('consent', 'update', {
-          'ad_storage': g,
-          'ad_user_data': g,
-          'ad_personalization': g,
-          'analytics_storage': g
-        });
-        gtag('event', 'consent_update', { choice: choice });
-        if (choice === 'all') {
-          loadCalendly();
-          loadHubSpot();
-        }
-      }
-
-      function showBanner() { banner.classList.add('is-visible'); }
-      function hideBanner() { banner.classList.remove('is-visible'); }
 
       // Compute (and cache) traffic-source attribution. First call this
       // session classifies the source from URL params / click IDs /
@@ -2150,20 +2008,20 @@
       }
 
       function loadCalendly() {
-        if (calendlyLoaded) return;
-        calendlyLoaded = true;
-        // Swap placeholder for the Calendly embed div
-        if (placeholder) placeholder.remove();
-        var embed = document.createElement('div');
-        embed.className = 'calendly-inline-widget';
-        embed.setAttribute('data-url', buildCalendlyUrl('https://calendly.com/thesixtytwosociety/call?primary_color=e4b03e'));
-        // Height controlled by CSS so mobile breakpoint (1900px) can win over default (760px).
-        widgetHost.appendChild(embed);
-        // Inject Calendly script
-        var s = document.createElement('script');
-        s.src = 'https://assets.calendly.com/assets/external/widget.js';
-        s.async = true;
-        document.body.appendChild(s);
+        // Widget div is already in the DOM (static markup). Just enhance the
+        // data-url with UTM/click-ID params so bookings retain source attribution
+        // in HubSpot/GA4, then inject Calendly's widget.js loader.
+        var widget = widgetHost && widgetHost.querySelector('.calendly-inline-widget');
+        if (widget) {
+          var base = widget.getAttribute('data-url') || 'https://calendly.com/thesixtytwosociety/call?primary_color=e4b03e';
+          widget.setAttribute('data-url', buildCalendlyUrl(base));
+        }
+        if (!document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
+          var s = document.createElement('script');
+          s.src = 'https://assets.calendly.com/assets/external/widget.js';
+          s.async = true;
+          document.body.appendChild(s);
+        }
       }
 
       // Calendly booking → form_submit_success dataLayer event so GTM can
@@ -2182,37 +2040,9 @@
         }
       });
 
-      // Consent button handlers
-      document.querySelectorAll('.consent__btn[data-consent]').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var choice = btn.getAttribute('data-consent');
-          saveConsent(choice);
-          applyConsent(choice);
-          hideBanner();
-        });
-      });
-      if (enableBtn) {
-        enableBtn.addEventListener('click', function () {
-          saveConsent('all');
-          applyConsent('all');
-          hideBanner();
-        });
-      }
-      if (settingsBtn) {
-        settingsBtn.addEventListener('click', function () {
-          showBanner();
-          gtag('event', 'consent_settings_opened');
-        });
-      }
-
-      // Initial state: show banner only if no prior choice
-      var prior = readConsent();
-      if (!prior) {
-        showBanner();
-      } else if (prior.choice === 'all') {
-        // Re-apply to make sure Calendly loads this session
-        applyConsent('all');
-      }
+      // Load Calendly + HubSpot immediately (no GDPR banner).
+      loadCalendly();
+      loadHubSpot();
 
       /* ===== EVENT TRACKING ===== */
 
