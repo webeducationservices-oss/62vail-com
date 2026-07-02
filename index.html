@@ -1922,6 +1922,30 @@
       // referrer and stores to sessionStorage. Later calls return the
       // cached value UNLESS the current URL has fresh tracking params
       // (most-recent-campaign wins).
+      // Read the HubSpot tracking cookie (hubspotutk) — the visitor's
+      // anonymous analytics identity. "" when the (consent-gated) tracking
+      // script hasn't set it.
+      function readHutk() {
+        var m = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/);
+        return m ? m[1] : '';
+      }
+
+      // Link the visitor's anonymous HubSpot cookie to the contact record.
+      // Contacts created via the Contacts API have no cookie identity, so
+      // HubSpot's "Website activity" panel stays at 0 visits even though
+      // page views were tracked (anonymously). identify + trackPageView
+      // merges that history into the contact. ONLY call after the server
+      // returns tracked:true (passed the spam gate) — identifying
+      // unconditionally would let JS-running bots create contacts through
+      // the tracker. Pushing to _hsq before the (consent-gated) script
+      // loads is safe: the queue drains on load, or stays inert.
+      function identifyContactInHubspot(email) {
+        if (!email) return;
+        window._hsq = window._hsq || [];
+        window._hsq.push(['identify', { email: email }]);
+        window._hsq.push(['trackPageView']);
+      }
+
       function getSourceAttribution() {
         var KEY = 'wes_first_touch_source';
         var p = new URLSearchParams(window.location.search);
@@ -1929,7 +1953,9 @@
         if (!hasFresh) {
           try {
             var cached = JSON.parse(sessionStorage.getItem(KEY) || 'null');
-            if (cached) return cached;
+            // hutk re-read fresh: the cookie can appear after the cache was
+            // first written (tracking script loads async / behind consent).
+            if (cached) { cached.hutk = readHutk(); return cached; }
           } catch (e) {}
         }
         var utm_source = (p.get('utm_source') || '').toLowerCase();
@@ -1963,6 +1989,7 @@
           analytics_source_data_2: d2,
           first_referrer: ref,
           first_url: window.location.href,
+          hutk: readHutk(),
         };
         try { sessionStorage.setItem(KEY, JSON.stringify(result)); } catch (e) {}
         return result;
@@ -2142,11 +2169,21 @@
               data = Object.assign(data, getSourceAttribution());
             } catch(e) { console.warn('source-attribution error:', e); }
 
-            await fetch('/api/submit-form', {
+            var submitRes = await fetch('/api/submit-form', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(data)
             });
+            // `tracked: true` = server accepted the submission (passed the
+            // spam gate). Only then do we identify the visitor to HubSpot —
+            // stitches the anonymous hubspotutk cookie to the contact so
+            // Website activity (visits + page views) shows on the record.
+            // Never identify unconditionally: bots that run JS would create
+            // contacts through the tracker, reopening the spam hole.
+            try {
+              var submitBody = await submitRes.json();
+              if (submitBody && submitBody.tracked) identifyContactInHubspot(data.email);
+            } catch (e) {}
           } catch (err) {
             console.error('Form submit error:', err);
           }
@@ -2225,11 +2262,18 @@
             };
             try { Object.assign(payload, getSourceAttribution()); } catch (e) { console.warn('hero source-attr error:', e); }
 
-            await fetch('/api/submit-form', {
+            var heroRes = await fetch('/api/submit-form', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(payload),
             });
+            // Accepted (`tracked: true`) → identify the visitor to HubSpot
+            // so the anonymous cookie's page-view history attaches to the
+            // contact. Gated on the server verdict — see inquiry handler.
+            try {
+              var heroBody = await heroRes.json();
+              if (heroBody && heroBody.tracked) identifyContactInHubspot(payload.email);
+            } catch (e) {}
           } catch (err) {
             console.error('Hero form submit error:', err);
             // Soft-fail to thank-you anyway — data is captured client-side;

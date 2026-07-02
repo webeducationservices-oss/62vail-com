@@ -308,5 +308,9 @@ module.exports = async function handler(req, res) {
     }
   }
 
-  res.status(200).json({ success: true });
+  // Accepted path only: `tracked` green-lights the client's HubSpot
+  // identify call (stitches the hubspotutk cookie to the contact so
+  // Website activity shows on the record). Spam/failure paths above
+  // return plain { success: true } so bots see an identical success.
+  res.status(200).json({ success: true, tracked: true });
 };
