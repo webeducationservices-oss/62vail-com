@@ -42,6 +42,14 @@ const crypto = require("crypto");
 
 const FORM_NOTIFY_URL = "https://myaieditor.com/api/form-notify";
 const HUBSPOT_API = "https://api.hubapi.com";
+const HUBSPOT_FORMS_API = "https://api.hsforms.com";
+const HUBSPOT_PORTAL_ID = "48481800";
+// "Website Lead (API Bridge)" — shared with thesixtytwovail (same portal).
+// Server-side Forms API submissions stitch the visitor's hubspotutk cookie
+// to the contact (Website activity panel), record a form-submission
+// timeline event, and create the contact as a Marketing contact. Form
+// GUIDs aren't secrets (visible in any embedded form's HTML).
+const HUBSPOT_BRIDGE_FORM_GUID = "2214d219-b416-4b52-9d07-600dd0b2e49d";
 
 // 62vail's master submissions sheet (from Supabase sites table —
 // google_sheet_id for slug=62vail). Owned by justin@webeducationservices.com
@@ -151,9 +159,67 @@ async function appendSpamRow(payload, req, reason) {
   }
 }
 
+// ── HubSpot Forms API bridge (identity stitching) ────────────────────
+//
+// Mirrors thesixtytwovail's src/lib/hubspot.ts submitToHubspotForm().
+// Unlike the Contacts upsert, this path stitches the hubspotutk cookie to
+// the contact (Website activity panel populates), records a form-submission
+// timeline event, creates the contact as a Marketing contact, and lets
+// HubSpot compute Original Source natively from the web session. Runs ONLY
+// after form-notify accepts, so bots never reach it. No auth needed.
+
+function isValidHutk(hutk) {
+  return typeof hutk === "string" && /^[0-9a-f]{32}$/i.test(hutk);
+}
+
+async function submitToHubspotForm(payload) {
+  const email = payload.email;
+  if (!email || !email.includes("@")) {
+    return { ok: false, reason: "valid email required" };
+  }
+
+  const fields = [{ objectTypeId: "0-1", name: "email", value: email }];
+  if (payload.first_name) fields.push({ objectTypeId: "0-1", name: "firstname", value: String(payload.first_name) });
+  if (payload.last_name) fields.push({ objectTypeId: "0-1", name: "lastname", value: String(payload.last_name) });
+  if (payload.phone) fields.push({ objectTypeId: "0-1", name: "phone", value: String(payload.phone) });
+
+  const context = {
+    pageUri: (typeof payload.first_url === "string" && payload.first_url) || "https://62vail.com/",
+    pageName: (typeof payload.form_type === "string" && payload.form_type) || "website_form",
+  };
+  if (isValidHutk(payload.hutk)) context.hutk = payload.hutk.toLowerCase();
+
+  const url = `${HUBSPOT_FORMS_API}/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_BRIDGE_FORM_GUID}`;
+
+  try {
+    let res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fields, context }),
+    });
+    if (res.ok) return { ok: true, hutk: !!context.hutk };
+
+    // Field-validation failure (e.g. exotic phone format) — retry with the
+    // minimum viable submission so identity stitching still happens.
+    const firstBody = await res.text();
+    res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        fields: [{ objectTypeId: "0-1", name: "email", value: email }],
+        context,
+      }),
+    });
+    if (res.ok) return { ok: true, hutk: !!context.hutk };
+    return { ok: false, reason: `HTTP ${res.status}: ${firstBody.slice(0, 200)}` };
+  } catch (err) {
+    return { ok: false, reason: (err && err.message) || "fetch failed" };
+  }
+}
+
 // ── HubSpot upsert (preserved from previous version) ─────────────────
 
-async function upsertHubspotContact(payload) {
+async function upsertHubspotContact(payload, skipAnalyticsProps) {
   const token = process.env.HUBSPOT_SERVICE_KEY;
   if (!token) return { ok: false, reason: "HUBSPOT_SERVICE_KEY not set" };
 
@@ -189,11 +255,17 @@ async function upsertHubspotContact(payload) {
   if (payload.form_type) properties.form_type = String(payload.form_type);
   properties.source_site = String(payload.site_slug || "62vail");
 
-  if (payload.analytics_source) properties.hs_analytics_source = String(payload.analytics_source);
-  if (payload.analytics_source_data_1) properties.hs_analytics_source_data_1 = String(payload.analytics_source_data_1);
-  if (payload.analytics_source_data_2) properties.hs_analytics_source_data_2 = String(payload.analytics_source_data_2);
-  if (payload.first_referrer) properties.hs_analytics_first_referrer = String(payload.first_referrer);
-  if (payload.first_url) properties.hs_analytics_first_url = String(payload.first_url);
+  // When the Forms bridge stitched a valid hutk, HubSpot computes Original
+  // Source natively from the actual web session — don't fight it with our
+  // client-side classification. Classified values remain the fallback for
+  // cookie-less submissions.
+  if (!skipAnalyticsProps) {
+    if (payload.analytics_source) properties.hs_analytics_source = String(payload.analytics_source);
+    if (payload.analytics_source_data_1) properties.hs_analytics_source_data_1 = String(payload.analytics_source_data_1);
+    if (payload.analytics_source_data_2) properties.hs_analytics_source_data_2 = String(payload.analytics_source_data_2);
+    if (payload.first_referrer) properties.hs_analytics_first_referrer = String(payload.first_referrer);
+    if (payload.first_url) properties.hs_analytics_first_url = String(payload.first_url);
+  }
 
   try {
     let attempt = await postUpsertOnce(token, email, properties);
@@ -298,9 +370,22 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  // 4. Accepted → HubSpot upsert
+  // 4. Accepted → HubSpot, two complementary calls
   if (payload.email) {
-    const result = await upsertHubspotContact(payload);
+    // 4a. Forms API bridge — cookie → contact stitch (Website activity),
+    //     form-submission timeline event, Marketing-contact status, native
+    //     Original Source. Failure is non-fatal; the upsert still records.
+    const formResult = await submitToHubspotForm(payload);
+    if (!formResult.ok) {
+      console.error("[submit-form] HubSpot Forms bridge failed:", formResult.reason);
+    } else {
+      console.log(`[submit-form] HubSpot Forms bridge ok (hutk=${formResult.hutk ? "yes" : "no"})`);
+    }
+
+    // 4b. Contacts upsert — custom props (form_type, source_site, opt_in,
+    //     message digest). Skip classified analytics props when the bridge
+    //     stitched natively.
+    const result = await upsertHubspotContact(payload, formResult.ok && formResult.hutk);
     if (!result.ok) {
       console.error("[submit-form] HubSpot upsert failed:", result.reason);
     } else {
